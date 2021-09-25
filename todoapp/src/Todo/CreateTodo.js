@@ -1,32 +1,51 @@
 import React, { useState } from "react";
-export default function CreateTodo({ user }) {
-  const [dateCreated, setDateCreated] = useState(new Date());
-  function handleCreatedTodo() {
-    const date = new Date().toLocaleDateString();
-    const time = new Date().toLocaleTimeString();
-    setDateCreated(`${date} ${time}`);
+
+export default function CreateTodo(props) {
+  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
+
+  function handleOnSubmit(event) {
+    event.preventDefault();
+    const createTodoJson = {
+      title: title,
+      description: description,
+      dateCreated: new Date().toLocaleDateString(),
+      id: Math.random(),
+    };
+
+    console.log(createTodoJson);
+    props.onSubmit(createTodoJson);
   }
+  function titleHandler(event) {
+    setTitle(event.target.value);
+  }
+  function descriptionHandler(event) {
+    setDescription(event.target.value);
+  }
+
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={handleOnSubmit}>
       <div>
-        Author: <b>{user}</b>
+        <h2>Create User</h2>
       </div>
       <div>
         <label htmlFor="title">Title:</label>
-        <input type="text" name="title" id="title" required />
-      </div>
-      <div>
-        <label htmlFor="dateCreated">Title:</label>
         <input
-          type="date"
-          name="dateCreated"
-          id="dateCreated"
-          onChange={handleCreatedTodo}
-          value={dateCreated}
-          disabled={true}
+          type="text"
+          name="title"
+          id="title"
+          onChange={titleHandler}
+          value={title}
+          required
         />
       </div>
-      <textarea name="description" id="description" />
+
+      <textarea
+        name="description"
+        id="description"
+        onChange={descriptionHandler}
+        value={description}
+      />
       <input type="submit" value="Create" />
     </form>
   );

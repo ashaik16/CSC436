@@ -3,6 +3,7 @@ import React, { useState } from "react";
 export default function Todo({ title, description, dateCreated }) {
   const [isCompleted, setIsCompleted] = useState("");
   const [dateCompleted, setDateCompleted] = useState("");
+
   function handleCompletedTodo() {
     if (!isCompleted) {
       setIsCompleted(true);
@@ -13,9 +14,9 @@ export default function Todo({ title, description, dateCreated }) {
   }
   return (
     <div>
-      <h3>{title}</h3>
-      <div>{description}</div>
-      <div>{dateCreated}</div>
+      <h3>{`Title: ${title}`}</h3>
+      <div>{`Description: ${description}`}</div>
+      <div>{`Date Created: ${dateCreated}`}</div>
       <div>
         <input
           type="checkbox"
