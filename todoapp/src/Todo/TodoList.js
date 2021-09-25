@@ -4,8 +4,14 @@ import Todo from "./Todo";
 export default function TodoList({ todoList = [] }) {
   return (
     <div>
-      {todoList.map((p) => (
-        <Todo key={Math.random()} {...p} />
+      <h2>Todo List</h2>
+      {todoList.map((todoItem) => (
+        <Todo
+          key={todoItem.id}
+          title={todoItem.title}
+          description={todoItem.description}
+          dateCreated={todoItem.dateCreated}
+        />
       ))}
     </div>
   );
