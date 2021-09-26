@@ -1,42 +1,32 @@
-import UserBar from "./User/UserBar";
-import CreateTodo from "./Todo/CreateTodo";
-import TodoList from "./Todo/TodoList";
+import Login from "./User/Login";
 import { useState } from "react";
+import UserBar from "./User/UserBar";
+import Register from "./User/Register";
+
 function App() {
-  const dummyTodoList = [
-    {
-      id: Math.random(),
-      title: "Check Mails",
-      description: "Check if there are any new mails.",
-      dateCreated: new Date().toLocaleDateString(),
-    },
-    {
-      id: Math.random(),
-      title: "Pay rent",
-      description: "Check for the utilities bills as well.",
-      dateCreated: new Date().toLocaleDateString(),
-    },
-    {
-      id: Math.random(),
-      title: "Pay tution fee",
-      description: "Check if the CTA pass fee is included.",
-      dateCreated: new Date().toLocaleDateString(),
-    },
-  ];
-  const [todoList, setTodoList] = useState(dummyTodoList);
-  const user = "Anam";
-  function onSubmitHandler(createdTodoObject) {
-    setTodoList((previousTodoList) => {
-      return [createdTodoObject, ...previousTodoList];
-    });
+  const [userName, setUserName] = useState("");
+
+  function loginHandler(userCredentialDetails) {
+    setUserName(userCredentialDetails.userName);
+    console.log(userName);
   }
+
+  function logOutHandler(isUserLoggedOut) {
+    if (isUserLoggedOut) setUserName("");
+  }
+
   return (
     <div>
-      <UserBar user={user} />
-      <hr />
-      <CreateTodo user={user} onSubmit={onSubmitHandler} />
-      <hr />
-      <TodoList todoList={todoList} />
+      {!userName && (
+        <div>
+          <h2>Login</h2>
+          <Login loginHandler={loginHandler} />
+          <hr />
+          <h1>OR</h1>
+          <Register registrationHandler={loginHandler} />
+        </div>
+      )}
+      <UserBar userName={userName} onLogOut={logOutHandler} />
     </div>
   );
 }

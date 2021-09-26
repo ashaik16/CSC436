@@ -15,10 +15,14 @@ export default function CreateTodo(props) {
 
     console.log(createTodoJson);
     props.onSubmit(createTodoJson);
+    setTitle("");
+    setDescription("");
   }
+
   function titleHandler(event) {
     setTitle(event.target.value);
   }
+
   function descriptionHandler(event) {
     setDescription(event.target.value);
   }
@@ -26,10 +30,14 @@ export default function CreateTodo(props) {
   return (
     <form onSubmit={handleOnSubmit}>
       <div>
-        <h2>Create User</h2>
+        <h2>
+          <u>Create Todo Task</u>
+        </h2>
       </div>
       <div>
-        <label htmlFor="title">Title:</label>
+        <label htmlFor="title">
+          <b> Title: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</b>
+        </label>
         <input
           type="text"
           name="title"
@@ -39,14 +47,22 @@ export default function CreateTodo(props) {
           required
         />
       </div>
-
-      <textarea
-        name="description"
-        id="description"
-        onChange={descriptionHandler}
-        value={description}
-      />
-      <input type="submit" value="Create" />
+      <br />
+      <div>
+        <label htmlFor="description">
+          <b>Description: </b>
+        </label>
+        <textarea
+          name="description"
+          id="description"
+          onChange={descriptionHandler}
+          value={description}
+        />
+      </div>
+      <br />
+      <div>
+        <input type="submit" value="Create" />
+      </div>
     </form>
   );
 }
