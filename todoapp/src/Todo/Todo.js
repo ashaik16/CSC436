@@ -17,25 +17,33 @@ export default function Todo({ title, description, dateCreated }) {
       <h3>{`Title: ${title}`}</h3>
       <div>{`Description: ${description}`}</div>
       <div>{`Date Created: ${dateCreated}`}</div>
+
       <div>
-        <input
-          type="checkbox"
-          id="completed"
-          name="completed"
-          onChange={handleCompletedTodo}
-          value={isCompleted}
-        />
-        <label htmlFor="completed"> Completed</label>
+        {isCompleted && <label> Status :</label>}
+        <label htmlFor="completed"> Task Completed</label>
+        {!isCompleted && (
+          <input
+            type="checkbox"
+            id="completed"
+            name="completed"
+            onChange={handleCompletedTodo}
+            value={isCompleted}
+          />
+        )}
       </div>
+
       <div>
         {isCompleted && (
-          <input
-            type="text"
-            name="dateCreated"
-            id="dateCreated"
-            value={dateCompleted}
-            disabled={true}
-          />
+          <div>
+            <label> Completed On :</label>
+            <input
+              type="text"
+              name="dateCreated"
+              id="dateCreated"
+              value={dateCompleted}
+              disabled={true}
+            />
+          </div>
         )}
       </div>
     </div>

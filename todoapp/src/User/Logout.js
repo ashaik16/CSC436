@@ -1,9 +1,13 @@
 import React from "react";
 
-export default function Logout({ user }) {
+export default function Logout(props) {
+  function logOutHandler(event) {
+    event.preventDefault();
+    props.onLogOut(true);
+  }
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
-      Logged in as: <b>{user}</b>
+    <form onSubmit={logOutHandler}>
+      Logged in as: <b> {props.userName}</b>&nbsp;
       <input type="submit" value="Logout" />
     </form>
   );
