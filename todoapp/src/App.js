@@ -19,10 +19,17 @@ function App() {
     <div>
       {!userName && (
         <div>
-          <h2>Login</h2>
+          <h2>
+            <u>Login</u>
+          </h2>
           <Login loginHandler={loginHandler} />
+          <br />
           <hr />
           <h1>OR</h1>
+
+          <h2>
+            <u>Register For New User</u>
+          </h2>
           <Register registrationHandler={loginHandler} />
         </div>
       )}

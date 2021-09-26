@@ -12,7 +12,7 @@ export default function Register(props) {
     setPassword(event.target.value);
   }
   function handleConfirmPassword(event) {
-    if (password != event.target.value) {
+    if (password !== event.target.value) {
       event.target.setCustomValidity(
         "Password and Confirm Password must be same"
       );
