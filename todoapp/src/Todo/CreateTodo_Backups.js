@@ -1,17 +1,30 @@
 import React, { useState } from "react";
 
-export default function CreateTodo({ dispatchTodo }) {
-  const [createTodoObject, setCreateTodoObject] = useState({
-    title: "",
-    description: "",
-  });
+export default function CreateTodo(props) {
+  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
+
   function handleOnSubmit(event) {
     event.preventDefault();
-    dispatchTodo({
-      type: "CREATE_TODO",
-      title: createTodoObject.title,
-      description: createTodoObject.description,
-    });
+    const createTodoJson = {
+      title: title,
+      description: description,
+      dateCreated: new Date().toLocaleDateString(),
+      id: Math.random(),
+    };
+
+    console.log(createTodoJson);
+    props.onSubmit(createTodoJson);
+    setTitle("");
+    setDescription("");
+  }
+
+  function titleHandler(event) {
+    setTitle(event.target.value);
+  }
+
+  function descriptionHandler(event) {
+    setDescription(event.target.value);
   }
 
   return (
@@ -29,13 +42,8 @@ export default function CreateTodo({ dispatchTodo }) {
           type="text"
           name="title"
           id="title"
-          onChange={(event) => {
-            setCreateTodoObject({
-              ...createTodoObject,
-              title: event.target.value,
-            });
-          }}
-          value={createTodoObject.title}
+          onChange={titleHandler}
+          value={title}
           required
         />
       </div>
@@ -47,13 +55,8 @@ export default function CreateTodo({ dispatchTodo }) {
         <textarea
           name="description"
           id="description"
-          onChange={(event) => {
-            setCreateTodoObject({
-              ...createTodoObject,
-              description: event.target.value,
-            });
-          }}
-          value={createTodoObject.description}
+          onChange={descriptionHandler}
+          value={description}
         />
       </div>
       <br />

@@ -1,39 +1,60 @@
-import Login from "./User/Login";
-import { useState } from "react";
 import UserBar from "./User/UserBar";
-import Register from "./User/Register";
+import CreateTodo from "./Todo/CreateTodo";
+import TodoList from "./Todo/TodoList";
+import React, { useReducer } from "react";
+import * as myConstClass from "./Todo/DummyTodoList";
 
 function App() {
-  const [userName, setUserName] = useState("");
-
-  function loginHandler(userCredentialDetails) {
-    setUserName(userCredentialDetails.userName);
-    console.log(userName);
+  //   const [state, dispatch] = useReducer(appReducer, {
+  //     user: "",
+  //     todo: myConstClass.dummyTodoList,
+  //   });
+  //   const { user, todo } = state;
+  function userReducer(state, action) {
+    switch (action.type) {
+      case "LOGIN":
+      case "REGISTER":
+        return action.username;
+      case "LOGOUT":
+        return "";
+      default:
+        return state;
+    }
   }
-
-  function logOutHandler(isUserLoggedOut) {
-    if (isUserLoggedOut) setUserName("");
+  function todoReducer(state, action) {
+    switch (action.type) {
+      case "CREATE_TODO":
+        const createTodoJson = {
+          title: action.title,
+          description: action.description,
+          dateCreated: new Date().toLocaleDateString(),
+          id: Math.random(),
+        };
+        return [createTodoJson, ...state];
+      default:
+        return state;
+    }
   }
+  const [user, dispatchUser] = useReducer(userReducer, "");
+  const [todoList, dispatchTodos] = useReducer(
+    todoReducer,
+    myConstClass.dummyTodoList
+  );
 
   return (
     <div>
-      {!userName && (
-        <div>
-          <h2>
-            <u>Login</u>
-          </h2>
-          <Login loginHandler={loginHandler} />
-          <br />
-          <hr />
-          <h1>OR</h1>
+      <UserBar user={user} dispatchUser={dispatchUser} />
+      <br />
+      <br />
+      <hr />
+      <br />
 
-          <h2>
-            <u>Register For New User</u>
-          </h2>
-          <Register registrationHandler={loginHandler} />
+      {user && (
+        <div>
+          <CreateTodo dispatchTodo={dispatchTodos} />
+          <TodoList todoList={todoList} />
         </div>
       )}
-      <UserBar userName={userName} onLogOut={logOutHandler} />
     </div>
   );
 }

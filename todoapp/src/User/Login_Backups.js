@@ -1,21 +1,28 @@
 import React, { useState } from "react";
 
-export default function Login({ dispatchUser }) {
-  const [username, setUsername] = useState("");
+export default function Login(props) {
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  function handleUserName(evt) {
-    setUsername(evt.target.value);
+
+  function handleUserName(event) {
+    setUserName(event.target.value);
   }
+
   function handlePassword(event) {
     setPassword(event.target.value);
   }
+
   function loginHandler(event) {
     event.preventDefault();
-    dispatchUser({ type: "LOGIN", username });
+    const loginCredintials = {
+      userName: userName,
+      password: password,
+    };
+
+    props.loginHandler(loginCredintials);
   }
   return (
     <form onSubmit={loginHandler}>
-      <p>I am in Reducer Example</p>
       <div>
         <label htmlFor="login-username">Username:</label>
         <input
@@ -23,7 +30,6 @@ export default function Login({ dispatchUser }) {
           name="login-username"
           id="login-username"
           onChange={handleUserName}
-          value={username}
           required
         />
       </div>
@@ -36,13 +42,12 @@ export default function Login({ dispatchUser }) {
           name="login-password"
           id="login-password"
           onChange={handlePassword}
-          value={password}
           required
         />
       </div>
       <br />
 
-      <input type="submit" value="Login" disabled={username.length === 0} />
+      <input type="submit" value="Login" />
     </form>
   );
 }
