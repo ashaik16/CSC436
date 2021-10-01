@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
-export default function Todo({ title, description, dateCreated }) {
+export default function Todo(props) {
   const [isCompleted, setIsCompleted] = useState("");
   const [dateCompleted, setDateCompleted] = useState("");
-
+  const title = props.title;
+  const description = props.description;
+  const dateCreated = props.dateCreated;
   function handleCompletedTodo() {
     if (!isCompleted) {
       setIsCompleted(true);
@@ -12,6 +14,9 @@ export default function Todo({ title, description, dateCreated }) {
       setDateCompleted(`${date} ${time}`);
     } else setIsCompleted(false);
   }
+  //   function deleteTodoHandler(id) {
+  //     props.onDeleteHandler(id);
+  //   }
   return (
     <div>
       <h3>{`Title: ${title}`}</h3>
@@ -46,6 +51,12 @@ export default function Todo({ title, description, dateCreated }) {
           </div>
         )}
       </div>
+      {/* <div>
+        {" "}
+        <button type="button" onClick={() => deleteTodoHandler(props.key)}>
+          Delete
+        </button>
+      </div> */}
     </div>
   );
 }

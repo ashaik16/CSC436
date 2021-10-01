@@ -31,12 +31,15 @@ function App() {
           id: Math.random(),
         };
         return [createTodoJson, ...state];
+      case "DELETE_TODO": {
+        return state.filter((x) => x.id !== action.id);
+      }
       default:
         return state;
     }
   }
   const [user, dispatchUser] = useReducer(userReducer, "");
-  const [todoList, dispatchTodos] = useReducer(
+  const [todoList, dispatchTodo] = useReducer(
     todoReducer,
     myConstClass.dummyTodoList
   );
@@ -51,8 +54,8 @@ function App() {
 
       {user && (
         <div>
-          <CreateTodo dispatchTodo={dispatchTodos} />
-          <TodoList todoList={todoList} />
+          <CreateTodo dispatchTodo={dispatchTodo} />
+          <TodoList todoList={todoList} dispatchTodo={dispatchTodo} />
         </div>
       )}
     </div>
