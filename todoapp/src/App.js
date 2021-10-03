@@ -1,6 +1,6 @@
 import UserBar from "./User/UserBar";
 
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import * as myConstClass from "./Todo/DummyTodoList";
 
 function App() {
