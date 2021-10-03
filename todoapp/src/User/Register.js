@@ -1,15 +1,31 @@
 import React, { useState } from "react";
 
 export default function Register({ dispatchUser }) {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    confrimPassword: "",
-  });
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleUserName(event) {
+    setUserName(event.target.value);
+  }
+
+  function handlePassword(event) {
+    setPassword(event.target.value);
+  }
+  function handleConfirmPassword(event) {
+    if (password !== event.target.value) {
+      event.target.setCustomValidity(
+        "Password and Confirm Password must be same"
+      );
+    } else {
+      event.target.setCustomValidity("");
+    }
+  }
   function registerHandler(event) {
     event.preventDefault();
-    dispatchUser({ type: "REGISTER", username: formData.username });
+
+    dispatchUser({ type: "REGISTER", username: userName });
   }
+
   return (
     <form onSubmit={registerHandler}>
       <div>
@@ -18,10 +34,7 @@ export default function Register({ dispatchUser }) {
           type="text"
           name="register-username"
           id="register-username"
-          value={formData.username}
-          onChange={(event) =>
-            setFormData({ ...formData, username: event.target.value })
-          }
+          onChange={handleUserName}
           required
         />
       </div>
@@ -33,10 +46,7 @@ export default function Register({ dispatchUser }) {
           type="password"
           name="register-password"
           id="register-password"
-          value={formData.password}
-          onChange={(event) =>
-            setFormData({ ...formData, password: event.target.value })
-          }
+          onChange={handlePassword}
           required
         />
       </div>
@@ -51,11 +61,8 @@ export default function Register({ dispatchUser }) {
           type="password"
           name="register-password-repeat"
           id="register-password-repeat"
-          value={formData.confrimPassword}
           required
-          onChange={(event) =>
-            setFormData({ ...formData, confrimPassword: event.target.value })
-          }
+          onChange={handleConfirmPassword}
         />
       </div>
       <br />
@@ -63,11 +70,7 @@ export default function Register({ dispatchUser }) {
       <input
         type="submit"
         value="Register"
-        disabled={
-          formData.username.length === 0 ||
-          formData.password.length === 0 ||
-          formData.password !== formData.confrimPassword
-        }
+        disabled={userName.length === 0 || password.length === 0}
       />
     </form>
   );
