@@ -1,11 +1,7 @@
 import React from "react";
 import Todo from "./Todo";
 
-export default function TodoList({ todoList = [], dispatchTodo }) {
-  function onDeleteHandler(id) {
-    dispatchTodo({ type: "DELETE_TODO", id });
-  }
-
+export default function TodoList({ todoList, dispatchTodo }) {
   return (
     <div>
       <h2>
@@ -13,19 +9,17 @@ export default function TodoList({ todoList = [], dispatchTodo }) {
       </h2>
       <ul>
         {todoList.map((todoItem) => (
-          <li>
+          <ol key={todoItem.id}>
             <Todo
-              key={todoItem.id}
               title={todoItem.title}
               description={todoItem.description}
               dateCreated={todoItem.dateCreated}
               id={todoItem.id}
-              onDeleteHandler={onDeleteHandler}
+              completed={todoItem.completed}
+              dateCompleted={todoItem.dateCompleted}
+              dispatchTodo={dispatchTodo}
             />
-            <button type="button" onClick={() => onDeleteHandler(todoItem.id)}>
-              Delete
-            </button>
-          </li>
+          </ol>
         ))}
       </ul>
     </div>

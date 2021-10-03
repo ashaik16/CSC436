@@ -4,6 +4,8 @@ export default function CreateTodo({ dispatchTodo }) {
   const [createTodoObject, setCreateTodoObject] = useState({
     title: "",
     description: "",
+    completed: false,
+    dateCompleted: "",
   });
   function handleOnSubmit(event) {
     event.preventDefault();
@@ -11,6 +13,8 @@ export default function CreateTodo({ dispatchTodo }) {
       type: "CREATE_TODO",
       title: createTodoObject.title,
       description: createTodoObject.description,
+      completed: createTodoObject.completed,
+      dateCompleted: createTodoObject.dateCompleted,
     });
   }
 

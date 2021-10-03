@@ -7,6 +7,7 @@ export default function Register({ dispatchUser }) {
     confrimPassword: "",
   });
   function registerHandler(event) {
+    event.preventDefault();
     dispatchUser({ type: "REGISTER", username: formData.username });
   }
   return (

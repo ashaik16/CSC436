@@ -1,9 +1,26 @@
 import Login from "./Login";
 import Logout from "./Logout";
 import Register from "./Register";
-export default function UserBar({ user, dispatchUser }) {
+import CreateTodo from "../Todo/CreateTodo";
+import TodoList from "../Todo/TodoList";
+export default function UserBar({
+  user,
+  dispatchUser,
+  dispatchTodo,
+  todoList,
+}) {
   if (user) {
-    return <Logout user={user} dispatchUser={dispatchUser} />;
+    return (
+      <div>
+        <Logout user={user} dispatchUser={dispatchUser} />
+        <br />
+        <br />
+        <hr />
+        <br />
+        <CreateTodo dispatchTodo={dispatchTodo} />
+        <TodoList todoList={todoList} dispatchTodo={dispatchTodo} />
+      </div>
+    );
   } else {
     return (
       <div>

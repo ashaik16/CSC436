@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 
 export default function Todo(props) {
-  const [isCompleted, setIsCompleted] = useState("");
-  const [dateCompleted, setDateCompleted] = useState("");
   const title = props.title;
   const description = props.description;
   const dateCreated = props.dateCreated;
-  function handleCompletedTodo() {
-    if (!isCompleted) {
-      setIsCompleted(true);
-      const date = new Date().toLocaleDateString();
-      const time = new Date().toLocaleTimeString();
-      setDateCompleted(`${date} ${time}`);
-    } else setIsCompleted(false);
+  const isCompleted = props.completed;
+  const dateCompleted = props.dateCompleted;
+
+  function onDeleteHandler(id) {
+    props.dispatchTodo({ type: "DELETE_TODO", id });
   }
-  //   function deleteTodoHandler(id) {
-  //     props.onDeleteHandler(id);
-  //   }
+  function onCompleteHandler(id) {
+    props.dispatchTodo({ type: "TOGGLE_TODO", id });
+  }
   return (
     <div>
       <h3>{`Title: ${title}`}</h3>
@@ -26,15 +22,14 @@ export default function Todo(props) {
       <div>
         {isCompleted && <label> Status :</label>}
         <label htmlFor="completed"> Task Completed</label>
-        {!isCompleted && (
-          <input
-            type="checkbox"
-            id="completed"
-            name="completed"
-            onChange={handleCompletedTodo}
-            value={isCompleted}
-          />
-        )}
+
+        <input
+          type="checkbox"
+          id="completed"
+          name="completed"
+          onClick={() => onCompleteHandler(props.id)}
+          value={isCompleted}
+        />
       </div>
 
       <div>
@@ -51,12 +46,12 @@ export default function Todo(props) {
           </div>
         )}
       </div>
-      {/* <div>
+      <div>
         {" "}
-        <button type="button" onClick={() => deleteTodoHandler(props.key)}>
+        <button type="button" onClick={() => onDeleteHandler(props.id)}>
           Delete
         </button>
-      </div> */}
+      </div>
     </div>
   );
 }

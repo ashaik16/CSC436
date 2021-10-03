@@ -1,15 +1,9 @@
 import UserBar from "./User/UserBar";
-import CreateTodo from "./Todo/CreateTodo";
-import TodoList from "./Todo/TodoList";
-import React, { useReducer } from "react";
+
+import React, { useReducer, useState } from "react";
 import * as myConstClass from "./Todo/DummyTodoList";
 
 function App() {
-  //   const [state, dispatch] = useReducer(appReducer, {
-  //     user: "",
-  //     todo: myConstClass.dummyTodoList,
-  //   });
-  //   const { user, todo } = state;
   function userReducer(state, action) {
     switch (action.type) {
       case "LOGIN":
@@ -29,8 +23,23 @@ function App() {
           description: action.description,
           dateCreated: new Date().toLocaleDateString(),
           id: Math.random(),
+          completed: false,
+          dateCompleted: "",
         };
         return [createTodoJson, ...state];
+      case "TOGGLE_TODO": {
+        const date = new Date().toLocaleDateString();
+        const time = new Date().toLocaleTimeString();
+        return state.map((todo) =>
+          todo.id === action.id
+            ? {
+                ...todo,
+                completed: !todo.completed,
+                dateCompleted: `${date} ${time}`,
+              }
+            : todo
+        );
+      }
       case "DELETE_TODO": {
         return state.filter((x) => x.id !== action.id);
       }
@@ -46,18 +55,12 @@ function App() {
 
   return (
     <div>
-      <UserBar user={user} dispatchUser={dispatchUser} />
-      <br />
-      <br />
-      <hr />
-      <br />
-
-      {user && (
-        <div>
-          <CreateTodo dispatchTodo={dispatchTodo} />
-          <TodoList todoList={todoList} dispatchTodo={dispatchTodo} />
-        </div>
-      )}
+      <UserBar
+        user={user}
+        dispatchUser={dispatchUser}
+        dispatchTodo={dispatchTodo}
+        todoList={todoList}
+      />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import React from "react";
 
-// export default function Logout({ user, setUser }) {
 export default function Logout({ user, dispatchUser }) {
   return (
     <form

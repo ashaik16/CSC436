@@ -15,7 +15,6 @@ export default function Login({ dispatchUser }) {
   }
   return (
     <form onSubmit={loginHandler}>
-      <p>I am in Reducer Example</p>
       <div>
         <label htmlFor="login-username">Username:</label>
         <input
