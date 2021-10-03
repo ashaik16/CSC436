@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function Todo({ title, description, dateCreated }) {
-  const [isCompleted, setIsCompleted] = useState("");
-  const [dateCompleted, setDateCompleted] = useState("");
+export default function Todo(props) {
+  const title = props.title;
+  const description = props.description;
+  const dateCreated = props.dateCreated;
+  const isCompleted = props.completed;
+  const dateCompleted = props.dateCompleted;
 
-  function handleCompletedTodo() {
-    if (!isCompleted) {
-      setIsCompleted(true);
-      const date = new Date().toLocaleDateString();
-      const time = new Date().toLocaleTimeString();
-      setDateCompleted(`${date} ${time}`);
-    } else setIsCompleted(false);
+  function onDeleteHandler(id) {
+    props.dispatchTodo({ type: "DELETE_TODO", id });
+  }
+  function onCompleteHandler(id) {
+    props.dispatchTodo({ type: "TOGGLE_TODO", id });
   }
   return (
     <div>
@@ -21,15 +22,14 @@ export default function Todo({ title, description, dateCreated }) {
       <div>
         {isCompleted && <label> Status :</label>}
         <label htmlFor="completed"> Task Completed</label>
-        {!isCompleted && (
-          <input
-            type="checkbox"
-            id="completed"
-            name="completed"
-            onChange={handleCompletedTodo}
-            value={isCompleted}
-          />
-        )}
+
+        <input
+          type="checkbox"
+          id="completed"
+          name="completed"
+          onClick={() => onCompleteHandler(props.id)}
+          value={isCompleted}
+        />
       </div>
 
       <div>
@@ -45,6 +45,12 @@ export default function Todo({ title, description, dateCreated }) {
             />
           </div>
         )}
+      </div>
+      <div>
+        {" "}
+        <button type="button" onClick={() => onDeleteHandler(props.id)}>
+          Delete
+        </button>
       </div>
     </div>
   );

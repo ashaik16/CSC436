@@ -1,33 +1,45 @@
-import React, { useState } from "react";
+import Login from "./Login";
 import Logout from "./Logout";
+import Register from "./Register";
 import CreateTodo from "../Todo/CreateTodo";
 import TodoList from "../Todo/TodoList";
-import * as myConstClass from "../Todo/DummyTodoList";
-
-export default function UserBar(props) {
-  const [todoList, setTodoList] = useState(myConstClass.dummyTodoList);
-
-  function onSubmitHandler(createdTodoObject) {
-    setTodoList((previousTodoList) => {
-      return [createdTodoObject, ...previousTodoList];
-    });
-  }
-
-  function onLogOutHandler(isUserLoggingOut) {
-    props.onLogOut(isUserLoggingOut);
-  }
-
-  if (props.userName.trim().length !== 0) {
+export default function UserBar({
+  user,
+  dispatchUser,
+  dispatchTodo,
+  todoList,
+}) {
+  if (user) {
     return (
       <div>
-        <Logout userName={props.userName} onLogOut={onLogOutHandler} />
+        <Logout user={user} dispatchUser={dispatchUser} />
+        <br />
+        <br />
         <hr />
-        <CreateTodo userName={props.userName} onSubmit={onSubmitHandler} />
-        <hr />
-        <TodoList todoList={todoList} />
+        <br />
+        <CreateTodo dispatchTodo={dispatchTodo} />
+        <TodoList todoList={todoList} dispatchTodo={dispatchTodo} />
       </div>
     );
   } else {
-    return <></>;
+    return (
+      <div>
+        {!user && (
+          <div>
+            <h2>
+              <u>Login</u>
+            </h2>
+            <Login dispatchUser={dispatchUser} />
+            <br />
+            <hr />
+            <h1>OR</h1>
+            <h2>
+              <u>Register For New User</u>
+            </h2>
+            <Register dispatchUser={dispatchUser} />
+          </div>
+        )}{" "}
+      </div>
+    );
   }
 }

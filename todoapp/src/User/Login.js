@@ -1,25 +1,17 @@
 import React, { useState } from "react";
 
-export default function Login(props) {
-  const [userName, setUserName] = useState("");
+export default function Login({ dispatchUser }) {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  function handleUserName(event) {
-    setUserName(event.target.value);
+  function handleUserName(evt) {
+    setUsername(evt.target.value);
   }
-
   function handlePassword(event) {
     setPassword(event.target.value);
   }
-
   function loginHandler(event) {
     event.preventDefault();
-    const loginCredintials = {
-      userName: userName,
-      password: password,
-    };
-
-    props.loginHandler(loginCredintials);
+    dispatchUser({ type: "LOGIN", username });
   }
   return (
     <form onSubmit={loginHandler}>
@@ -30,6 +22,7 @@ export default function Login(props) {
           name="login-username"
           id="login-username"
           onChange={handleUserName}
+          value={username}
           required
         />
       </div>
@@ -42,12 +35,13 @@ export default function Login(props) {
           name="login-password"
           id="login-password"
           onChange={handlePassword}
+          value={password}
           required
         />
       </div>
       <br />
 
-      <input type="submit" value="Login" />
+      <input type="submit" value="Login" disabled={username.length === 0} />
     </form>
   );
 }

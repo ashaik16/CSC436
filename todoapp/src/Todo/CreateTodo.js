@@ -1,30 +1,21 @@
 import React, { useState } from "react";
 
-export default function CreateTodo(props) {
-  const [description, setDescription] = useState("");
-  const [title, setTitle] = useState("");
-
+export default function CreateTodo({ dispatchTodo }) {
+  const [createTodoObject, setCreateTodoObject] = useState({
+    title: "",
+    description: "",
+    completed: false,
+    dateCompleted: "",
+  });
   function handleOnSubmit(event) {
     event.preventDefault();
-    const createTodoJson = {
-      title: title,
-      description: description,
-      dateCreated: new Date().toLocaleDateString(),
-      id: Math.random(),
-    };
-
-    console.log(createTodoJson);
-    props.onSubmit(createTodoJson);
-    setTitle("");
-    setDescription("");
-  }
-
-  function titleHandler(event) {
-    setTitle(event.target.value);
-  }
-
-  function descriptionHandler(event) {
-    setDescription(event.target.value);
+    dispatchTodo({
+      type: "CREATE_TODO",
+      title: createTodoObject.title,
+      description: createTodoObject.description,
+      completed: createTodoObject.completed,
+      dateCompleted: createTodoObject.dateCompleted,
+    });
   }
 
   return (
@@ -42,8 +33,13 @@ export default function CreateTodo(props) {
           type="text"
           name="title"
           id="title"
-          onChange={titleHandler}
-          value={title}
+          onChange={(event) => {
+            setCreateTodoObject({
+              ...createTodoObject,
+              title: event.target.value,
+            });
+          }}
+          value={createTodoObject.title}
           required
         />
       </div>
@@ -55,8 +51,13 @@ export default function CreateTodo(props) {
         <textarea
           name="description"
           id="description"
-          onChange={descriptionHandler}
-          value={description}
+          onChange={(event) => {
+            setCreateTodoObject({
+              ...createTodoObject,
+              description: event.target.value,
+            });
+          }}
+          value={createTodoObject.description}
         />
       </div>
       <br />
