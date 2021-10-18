@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { StateContext } from "../Contexts";
 
-export default function CreateTodo({ dispatchTodo }) {
+// export default function CreateTodo({ dispatch }) {
+export default function CreateTodo() {
   const [createTodoObject, setCreateTodoObject] = useState({
     title: "",
     description: "",
@@ -9,7 +11,7 @@ export default function CreateTodo({ dispatchTodo }) {
   });
   function handleOnSubmit(event) {
     event.preventDefault();
-    dispatchTodo({
+    dispatch({
       type: "CREATE_TODO",
       title: createTodoObject.title,
       description: createTodoObject.description,
@@ -17,6 +19,7 @@ export default function CreateTodo({ dispatchTodo }) {
       dateCompleted: createTodoObject.dateCompleted,
     });
   }
+  const { dispatch } = useContext(StateContext);
 
   return (
     <form onSubmit={handleOnSubmit}>

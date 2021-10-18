@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { StateContext } from "../Contexts";
 import Todo from "./Todo";
 
-export default function TodoList({ todoList, dispatchTodo }) {
+// export default function TodoList({ todoList, dispatch }) {
+
+export default function TodoList() {
+  const { state } = useContext(StateContext);
+  const { todoList } = state;
   return (
     <div>
       <h2>
@@ -17,7 +22,7 @@ export default function TodoList({ todoList, dispatchTodo }) {
               id={todoItem.id}
               completed={todoItem.completed}
               dateCompleted={todoItem.dateCompleted}
-              dispatchTodo={dispatchTodo}
+              // dispatch={dispatch}
             />
           </ol>
         ))}

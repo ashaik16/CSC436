@@ -1,5 +1,6 @@
 import React from "react";
-
+import { useContext } from "react";
+import { StateContext } from "../Contexts";
 export default function Todo(props) {
   const title = props.title;
   const description = props.description;
@@ -7,11 +8,14 @@ export default function Todo(props) {
   const isCompleted = props.completed;
   const dateCompleted = props.dateCompleted;
 
+  const { dispatch } = useContext(StateContext);
   function onDeleteHandler(id) {
-    props.dispatchTodo({ type: "DELETE_TODO", id });
+    // props.dispatch({ type: "DELETE_TODO", id });
+    dispatch({ type: "DELETE_TODO", id });
   }
   function onCompleteHandler(id) {
-    props.dispatchTodo({ type: "TOGGLE_TODO", id });
+    // props.dispatch({ type: "TOGGLE_TODO", id });
+    dispatch({ type: "TOGGLE_TODO", id });
   }
   return (
     <div>

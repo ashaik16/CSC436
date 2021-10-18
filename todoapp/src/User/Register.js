@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { StateContext } from "../Contexts";
 
-export default function Register({ dispatchUser }) {
+//export default function Register({ dispatch }) {
+export default function Register() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
+  const { dispatch } = useContext(StateContext);
 
   function handleUserName(event) {
     setUserName(event.target.value);
@@ -23,7 +27,7 @@ export default function Register({ dispatchUser }) {
   function registerHandler(event) {
     event.preventDefault();
 
-    dispatchUser({ type: "REGISTER", username: userName });
+    dispatch({ type: "REGISTER", username: userName });
   }
 
   return (
