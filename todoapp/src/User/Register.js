@@ -22,6 +22,7 @@ export default function Register() {
       event.target.setCustomValidity("");
     }
   }
+
   const [user, register] = useResource(({ userName, password }) => ({
     url: "/users",
     method: "post",
