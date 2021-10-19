@@ -1,0 +1,27 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Do Laundry",
+      "content": "Wash, dry, and fold",
+      "author": "testuser",
+      "completed": false,
+      "completedOn": null
+    },
+    {
+      "id": 2,
+      "title": "Pay Bills",
+      "content": "Car, Electric, Gas",
+      "author": "testuser",
+      "completed": false,
+      "completedOn": null
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "testuser",
+      "password": "badpassword"
+    }
+  ]
+}
