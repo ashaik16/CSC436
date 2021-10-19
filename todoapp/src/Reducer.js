@@ -40,10 +40,10 @@ export default function appReducer(state, action) {
     switch (action.type) {
       case "CREATE_TODO":
         const createTodoJson = {
+          id: action.id,
           title: action.title,
           description: action.description,
-          dateCreated: new Date().toLocaleDateString(),
-          id: Math.random(),
+          dateCreated: action.dateCreated,
           completed: false,
           dateCompleted: "",
         };

@@ -1,20 +1,40 @@
 import React, { useContext, useState } from "react";
 import { StateContext } from "../Contexts";
-
+import { useResource } from "react-request-hook";
+import { useEffect } from "react";
 // export default function CreateTodo({ dispatch }) {
 export default function CreateTodo() {
   const [createTodoObject, setCreateTodoObject] = useState({
+    id: Math.random(),
     title: "",
     description: "",
+    dateCreated: new Date().toLocaleDateString(),
     completed: false,
     dateCompleted: "",
   });
-  function handleOnSubmit(event) {
-    event.preventDefault();
-    dispatch({
-      type: "CREATE_TODO",
+
+  const [todo, createTodos] = useResource(({ createTodoObject }) => ({
+    url: "/todoList",
+    method: "post",
+    data: {
+      id: createTodoObject.id.toString(),
       title: createTodoObject.title,
       description: createTodoObject.description,
+      dateCreated: createTodoObject.dateCreated,
+      completed: createTodoObject.completed,
+      dateCompleted: createTodoObject.dateCompleted,
+    },
+  }));
+
+  function handleOnSubmit(event) {
+    event.preventDefault();
+    createTodos({ createTodoObject });
+    dispatch({
+      type: "CREATE_TODO",
+      id: createTodoObject.id,
+      title: createTodoObject.title,
+      description: createTodoObject.description,
+      dateCreated: createTodoObject.dateCreated,
       completed: createTodoObject.completed,
       dateCompleted: createTodoObject.dateCompleted,
     });

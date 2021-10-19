@@ -64,7 +64,7 @@ function App() {
 
   useEffect(() => {
     if (todoList && todoList.data) {
-      dispatch({ type: "FETCH_TODOS", todoList: todoList.data });
+      dispatch({ type: "FETCH_TODOS", todoList: todoList.data.reverse() });
     }
   }, [todoList]);
 
