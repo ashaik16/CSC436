@@ -1,9 +1,12 @@
 import UserBar from "./User/UserBar";
 
 import React, { useReducer } from "react";
-import * as myConstClass from "./Todo/DummyTodoList";
+//import * as myConstClass from "./Todo/DummyTodoList";
 import appReducer from "./Reducer";
 import { StateContext } from "./Contexts";
+import { useResource } from "react-request-hook";
+import { useEffect } from "react";
+
 function App() {
   // function userReducer(state, action) {
   //   switch (action.type) {
@@ -48,11 +51,22 @@ function App() {
   //       return state;
   //   }
   // }
-
   const [state, dispatch] = useReducer(appReducer, {
     user: "",
-    todoList: myConstClass.dummyTodoList,
+    todoList: [],
   });
+  const [todoList, getTodos] = useResource(() => ({
+    url: "/todoList",
+    method: "get",
+  }));
+
+  useEffect(getTodos, []);
+
+  useEffect(() => {
+    if (todoList && todoList.data) {
+      dispatch({ type: "FETCH_TODOS", todoList: todoList.data });
+    }
+  }, [todoList]);
 
   return (
     <div>

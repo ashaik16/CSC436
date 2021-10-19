@@ -1,20 +1,36 @@
 {
-  "todos": [
+  "todoList": [
     {
-      "id": 1,
-      "title": "Do Laundry",
-      "content": "Wash, dry, and fold",
-      "author": "testuser",
+      "id": "1",
+      "title": "Check Mails",
+      "description": "Check if there are any new mails.",
+      "dateCreated": "1/10/15",
       "completed": false,
-      "completedOn": null
+      "dateCompleted": ""
     },
     {
-      "id": 2,
-      "title": "Pay Bills",
-      "content": "Car, Electric, Gas",
-      "author": "testuser",
+      "id": "2",
+      "title": "Pay rent",
+      "description": "Check for the utilities bills as well.",
+      "dateCreated": "1/10/15",
       "completed": false,
-      "completedOn": null
+      "dateCompleted": ""
+    },
+    {
+      "id": "3",
+      "title": "Pay tution fee",
+      "description": "Check if the CTA pass fee is included.",
+      "dateCreated": "11/10/15",
+      "completed": false,
+      "dateCompleted": ""
+    },
+    {
+      "title": "Pay ttttt tution fee",
+      "description": "Check if the CTA pass fee is included.",
+      "dateCreated": "11/10/15",
+      "completed": false,
+      "dateCompleted": "",
+      "id": "CWzUcBi"
     }
   ],
   "users": [
@@ -22,6 +38,11 @@
       "id": 1,
       "username": "testuser",
       "password": "badpassword"
+    },
+    {
+      "id": 2,
+      "username": "anam",
+      "password": "anam"
     }
   ]
 }

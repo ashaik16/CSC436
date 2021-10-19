@@ -64,6 +64,9 @@ export default function appReducer(state, action) {
       case "DELETE_TODO": {
         return state.filter((x) => x.id !== action.id);
       }
+      case "FETCH_TODOS": {
+        return action.todoList;
+      }
       default:
         return state;
     }

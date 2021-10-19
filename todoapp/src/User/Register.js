@@ -5,9 +5,7 @@ import { StateContext } from "../Contexts";
 export default function Register() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
   const { dispatch } = useContext(StateContext);
-
   function handleUserName(event) {
     setUserName(event.target.value);
   }

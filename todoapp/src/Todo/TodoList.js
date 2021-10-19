@@ -13,7 +13,7 @@ export default function TodoList() {
         <u>Todo List</u>
       </h2>
       <ul>
-        {todoList.map((todoItem) => (
+        {todoList.map((todoItem, i) => (
           <ol key={todoItem.id}>
             <Todo
               title={todoItem.title}
