@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { StateContext } from "../Contexts";
-
+import { useResource } from "react-request-hook";
 //export default function Register({ dispatch }) {
 export default function Register() {
   const [userName, setUserName] = useState("");
@@ -22,9 +22,15 @@ export default function Register() {
       event.target.setCustomValidity("");
     }
   }
+  const [user, register] = useResource(({ userName, password }) => ({
+    url: "/users",
+    method: "post",
+    data: { username: userName, password: password },
+  }));
+
   function registerHandler(event) {
     event.preventDefault();
-
+    register({ userName: userName, password: password });
     dispatch({ type: "REGISTER", username: userName });
   }
 
