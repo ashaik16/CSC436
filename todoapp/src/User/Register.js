@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StateContext } from "../Contexts";
 import { useResource } from "react-request-hook";
 //export default function Register({ dispatch }) {
@@ -28,11 +28,16 @@ export default function Register() {
     method: "post",
     data: { username: userName, password: password },
   }));
+  useEffect(() => {
+    if (user && user.data) {
+      dispatch({ type: "REGISTER", username: user.data.username });
+    }
+  }, [user]);
 
   function registerHandler(event) {
     event.preventDefault();
-    register({ userName: userName, password: password });
-    dispatch({ type: "REGISTER", username: userName });
+    register({ userName, password });
+    //dispatch({ type: "REGISTER", username: userName });
   }
 
   return (

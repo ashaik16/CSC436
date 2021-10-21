@@ -3,7 +3,8 @@ import { StateContext } from "../Contexts";
 
 //export default function Logout({ user, dispatch }) {
 export default function Logout() {
-  const { dispatch, user } = useContext(StateContext);
+  const { dispatch, state } = useContext(StateContext);
+  const { user } = state;
   return (
     <form
       onSubmit={(e) => {
