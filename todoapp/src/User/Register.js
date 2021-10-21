@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StateContext } from "../Contexts";
 import { useResource } from "react-request-hook";
-//export default function Register({ dispatch }) {
+
 export default function Register() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -37,7 +37,6 @@ export default function Register() {
   function registerHandler(event) {
     event.preventDefault();
     register({ userName, password });
-    //dispatch({ type: "REGISTER", username: userName });
   }
 
   return (

@@ -16,15 +16,14 @@ export default function UserBar() {
   if (user) {
     return (
       <div>
-        {/* <Logout user={user} dispatch={dispatch} /> */}
         <Logout />
         <br />
         <br />
         <hr />
         <br />
-        {/* <CreateTodo dispatch={dispatch} /> */}
+
         {user && <CreateTodo />}
-        {/* <TodoList todoList={todoList} dispatch={dispatch} /> */}
+
         <TodoList />
       </div>
     );
@@ -36,7 +35,7 @@ export default function UserBar() {
             <h2>
               <u>Login</u>
             </h2>
-            {/* <Login dispatch={dispatch} /> */}
+
             <Login />
             <br />
             <hr />
@@ -44,7 +43,7 @@ export default function UserBar() {
             <h2>
               <u>Register For New User</u>
             </h2>
-            {/* <Register dispatch={dispatch} /> */}
+
             <Register />
           </div>
         )}{" "}

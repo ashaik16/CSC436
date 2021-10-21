@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { StateContext } from "../Contexts";
 import { useResource } from "react-request-hook";
 import { useEffect } from "react";
-// export default function CreateTodo({ dispatch }) {
+
 export default function CreateTodo() {
   const [createTodoObject, setCreateTodoObject] = useState({
     title: "",

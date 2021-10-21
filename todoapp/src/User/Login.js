@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { StateContext } from "../Contexts";
 import { useResource } from "react-request-hook";
 import { useEffect } from "react";
-//export default function Login({ dispatch }) {
+
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,16 +13,12 @@ export default function Login() {
   function handlePassword(event) {
     setPassword(event.target.value);
   }
-  function loginHandler(event) {
-    event.preventDefault();
-    login(username, password);
-    // dispatch({ type: "LOGIN", username });
-  }
   const { dispatch } = useContext(StateContext);
   const [user, login] = useResource((username, password) => ({
     url: `/login/${encodeURI(username)}/${encodeURI(password)}`,
     method: "get",
   }));
+
   useEffect(() => {
     if (user && user.data) {
       if (user.data.length > 0) {
@@ -33,6 +29,12 @@ export default function Login() {
       }
     }
   }, [user]);
+
+  function loginHandler(event) {
+    event.preventDefault();
+    login(username, password);
+  }
+
   return (
     <form onSubmit={loginHandler}>
       <div>

@@ -10,11 +10,9 @@ export default function Todo(props) {
   const id = props.id;
   const { dispatch } = useContext(StateContext);
   function onDeleteHandler(id) {
-    // props.dispatch({ type: "DELETE_TODO", id });
     dispatch({ type: "DELETE_TODO", id });
   }
   function onCompleteHandler(id) {
-    // props.dispatch({ type: "TOGGLE_TODO", id });
     dispatch({ type: "TOGGLE_TODO", id });
   }
   return (
