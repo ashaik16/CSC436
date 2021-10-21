@@ -7,7 +7,7 @@ export default function Todo(props) {
   const dateCreated = props.dateCreated;
   const isCompleted = props.completed;
   const dateCompleted = props.dateCompleted;
-
+  const id = props.id;
   const { dispatch } = useContext(StateContext);
   function onDeleteHandler(id) {
     // props.dispatch({ type: "DELETE_TODO", id });
@@ -31,7 +31,7 @@ export default function Todo(props) {
           type="checkbox"
           id="completed"
           name="completed"
-          onClick={() => onCompleteHandler(props.id)}
+          onClick={() => onCompleteHandler(id)}
           value={isCompleted}
         />
       </div>
@@ -52,7 +52,7 @@ export default function Todo(props) {
       </div>
       <div>
         {" "}
-        <button type="button" onClick={() => onDeleteHandler(props.id)}>
+        <button type="button" onClick={() => onDeleteHandler(id)}>
           Delete
         </button>
       </div>

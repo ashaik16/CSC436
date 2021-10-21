@@ -23,7 +23,7 @@ export default function UserBar() {
         <hr />
         <br />
         {/* <CreateTodo dispatch={dispatch} /> */}
-        <CreateTodo />
+        {user && <CreateTodo />}
         {/* <TodoList todoList={todoList} dispatch={dispatch} /> */}
         <TodoList />
       </div>

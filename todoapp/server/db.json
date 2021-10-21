@@ -1,7 +1,7 @@
 {
   "todoList": [
     {
-      "id": "1",
+      "id": 1,
       "title": "Check Mails",
       "description": "Check if there are any new mails.",
       "dateCreated": "1/10/15",
@@ -9,7 +9,7 @@
       "dateCompleted": ""
     },
     {
-      "id": "2",
+      "id": 2,
       "title": "Pay rent",
       "description": "Check for the utilities bills as well.",
       "dateCreated": "1/10/15",
@@ -17,26 +17,10 @@
       "dateCompleted": ""
     },
     {
-      "id": "3",
+      "id": 3,
       "title": "Pay tution fee",
       "description": "Check if the CTA pass fee is included.",
       "dateCreated": "11/10/15",
-      "completed": false,
-      "dateCompleted": ""
-    },
-    {
-      "id": "0.14118493782450647",
-      "title": "aa",
-      "description": "ssasa",
-      "dateCreated": "10/18/2021",
-      "completed": false,
-      "dateCompleted": ""
-    },
-    {
-      "id": "0.36601414928450926",
-      "title": "aaa",
-      "description": "fff",
-      "dateCreated": "10/19/2021",
       "completed": false,
       "dateCompleted": ""
     }

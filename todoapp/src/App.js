@@ -8,15 +8,14 @@ import { useResource } from "react-request-hook";
 import { useEffect } from "react";
 
 function App() {
-  const [state, dispatch] = useReducer(appReducer, {
-    user: "",
-    todoList: [],
-  });
   const [todoList, getTodos] = useResource(() => ({
     url: "/todoList",
     method: "get",
   }));
-
+  const [state, dispatch] = useReducer(appReducer, {
+    user: "",
+    todoList: [],
+  });
   useEffect(getTodos, []);
 
   useEffect(() => {
@@ -28,11 +27,7 @@ function App() {
   return (
     <div>
       <StateContext.Provider value={{ state: state, dispatch: dispatch }}>
-        <UserBar
-        // user={state.user}
-        // dispatch={dispatch}
-        // todoList={state.todoList}
-        />
+        <UserBar />
       </StateContext.Provider>
     </div>
   );

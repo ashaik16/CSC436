@@ -5,7 +5,6 @@ import { useEffect } from "react";
 // export default function CreateTodo({ dispatch }) {
 export default function CreateTodo() {
   const [createTodoObject, setCreateTodoObject] = useState({
-    id: Math.random(),
     title: "",
     description: "",
     dateCreated: new Date().toLocaleDateString(),
@@ -17,7 +16,6 @@ export default function CreateTodo() {
     url: "/todoList",
     method: "post",
     data: {
-      id: createTodoObject.id.toString(),
       title: createTodoObject.title,
       description: createTodoObject.description,
       dateCreated: createTodoObject.dateCreated,
@@ -25,21 +23,24 @@ export default function CreateTodo() {
       dateCompleted: createTodoObject.dateCompleted,
     },
   }));
-
+  const { dispatch } = useContext(StateContext);
   function handleOnSubmit(event) {
     event.preventDefault();
     createTodos({ createTodoObject });
-    dispatch({
-      type: "CREATE_TODO",
-      id: createTodoObject.id,
-      title: createTodoObject.title,
-      description: createTodoObject.description,
-      dateCreated: createTodoObject.dateCreated,
-      completed: createTodoObject.completed,
-      dateCompleted: createTodoObject.dateCompleted,
-    });
   }
-  const { dispatch } = useContext(StateContext);
+  useEffect(() => {
+    if (todo && todo.data) {
+      dispatch({
+        type: "CREATE_TODO",
+        id: todo.data.id,
+        title: todo.data.title,
+        description: todo.data.description,
+        dateCreated: todo.data.dateCreated,
+        completed: todo.data.completed,
+        dateCompleted: todo.data.dateCompleted,
+      });
+    }
+  }, [todo]);
 
   return (
     <form onSubmit={handleOnSubmit}>
