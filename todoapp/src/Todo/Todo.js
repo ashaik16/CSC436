@@ -1,6 +1,8 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { StateContext } from "../Contexts";
+import { useResource } from "react-request-hook";
+
 export default function Todo(props) {
   const title = props.title;
   const description = props.description;
@@ -8,13 +10,26 @@ export default function Todo(props) {
   const isCompleted = props.completed;
   const dateCompleted = props.dateCompleted;
   const id = props.id;
+
   const { dispatch } = useContext(StateContext);
+
+  const [todo, deleteTodos] = useResource((id) => ({
+    url: "/todoList/" + id,
+    method: "delete",
+  }));
+  useEffect(() => {
+    if (todo && todo.data) {
+      dispatch({ type: "DELETE_TODO", id });
+    }
+  }, [todo]);
   function onDeleteHandler(id) {
-    dispatch({ type: "DELETE_TODO", id });
+    //dispatch({ type: "DELETE_TODO", id });
+    deleteTodos(id);
   }
   function onCompleteHandler(id) {
     dispatch({ type: "TOGGLE_TODO", id });
   }
+
   return (
     <div>
       <h3>{`Title: ${title}`}</h3>
