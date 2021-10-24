@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useContext, useEffect } from "react";
+import React from "react";
+import { useContext, useEffect, useState } from "react";
 import { StateContext } from "../Contexts";
 import { useResource } from "react-request-hook";
 
@@ -9,42 +9,58 @@ export default function Todo(props) {
   const dateCreated = props.dateCreated;
   const completed = props.completed;
   const dateCompleted = props.dateCompleted;
+  // const { completeObject, setCompleteObject } = useState({
+  //   completed: false,
+  //   dateCompleted: "",
+  // });
+
+  // const completed = props.completeObject.completed;
+  // const dateCompleted = props.completeObject.dateCompleted;
   const id = props.id;
   const { dispatch } = useContext(StateContext);
+
+  const [toggleData, toggleTodoFunction] = useResource((id) => ({
+    url: "/todoList/" + id,
+    method: "patch",
+    data: {
+      completed: completed,
+      dateCompleted: dateCompleted,
+    },
+  }));
+
+  console.log(toggleData);
+
+  function onCompleteHandler() {
+    toggleTodoFunction(id);
+  }
+
+  useEffect(() => {
+    if (toggleData && toggleData.isLoading === false && toggleData.data) {
+      console.log("toggle useEffect");
+      dispatch({
+        type: "TOGGLE_TODO",
+        id,
+        dateCompleted: toggleData.data.dateCompleted,
+        completed: toggleData.data.completed,
+      });
+    }
+  }, [toggleData]);
 
   const [deleteData, deleteTodoFunction] = useResource((id) => ({
     url: "/todoList/" + id,
     method: "delete",
   }));
+
+  function onDeleteHandler() {
+    deleteTodoFunction(id);
+    //  dispatch({ type: "DELETE_TODO", id });
+  }
   useEffect(() => {
-    if (deleteData && deleteData.data) {
+    console.log("delete useEffect");
+    if (deleteData && deleteData.data && deleteData.isLoading === false) {
       dispatch({ type: "DELETE_TODO", id });
     }
   }, [deleteData]);
-
-  function onDeleteHandler(id) {
-    deleteTodoFunction(id);
-  }
-
-  const [toggleData, toggleTodoFunction] = useResource((id) => ({
-    url: "/todoList/" + id,
-    method: "patch",
-    data: { dateCompleted: dateCompleted, completed: completed },
-  }));
-  function onCompleteHandler(check) {
-    toggleTodoFunction(id);
-  }
-
-  useEffect(() => {
-    if (toggleData && toggleData.data && toggleData.isLoading === false) {
-      dispatch({
-        type: "TOGGLE_TODO",
-        id: toggleData.data.id,
-        completed: toggleData.data.completed,
-        dateCompleted: toggleData.data.dateCompleted,
-      });
-    }
-  }, [toggleData]);
   return (
     <div>
       <h3>{`Title: ${title}`}</h3>
@@ -59,15 +75,18 @@ export default function Todo(props) {
           type="checkbox"
           id="completed"
           name="completed"
-          onClick={() => onCompleteHandler(completed)}
           value={completed}
+          onClick={onCompleteHandler}
+          //defaultChecked={props.completed}
+          // onChange={() => onCompleteHandler(props.id)}
+          //defaultChecked={completed}
         />
       </div>
 
       <div>
         {completed && (
           <div>
-            <label> Completed On :</label>
+            <label htmlFor="dateCompleted"> Completed On :</label>
             <input
               type="text"
               name="dateCompleted"
@@ -80,7 +99,7 @@ export default function Todo(props) {
       </div>
       <div>
         {" "}
-        <button type="button" onClick={() => onDeleteHandler(id)}>
+        <button type="button" onClick={onDeleteHandler}>
           Delete
         </button>
       </div>
