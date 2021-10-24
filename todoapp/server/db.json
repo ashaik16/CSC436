@@ -1,0 +1,63 @@
+{
+  "todoList": [
+    {
+      "id": 1,
+      "title": "Check Mails",
+      "description": "Check if there are any new mails.",
+      "dateCreated": "1/10/15",
+      "completed": false,
+      "dateCompleted": ""
+    },
+    {
+      "id": 2,
+      "title": "Pay rent",
+      "description": "Check for the utilities bills as well.",
+      "dateCreated": "1/10/15",
+      "completed": false,
+      "dateCompleted": ""
+    },
+    {
+      "id": 3,
+      "title": "Pay tution fee",
+      "description": "Check if the CTA pass fee is included.",
+      "dateCreated": "11/10/15",
+      "completed": false,
+      "dateCompleted": ""
+    },
+    {
+      "title": "rr",
+      "description": "rr",
+      "dateCreated": "10/24/2021",
+      "completed": true,
+      "dateCompleted": "10/24/2021 10:57:23 AM",
+      "id": 4
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "testuser",
+      "password": "badpassword"
+    },
+    {
+      "username": "a",
+      "password": "a",
+      "id": 2
+    },
+    {
+      "username": "s",
+      "password": "s",
+      "id": 3
+    },
+    {
+      "username": "as",
+      "password": "ss",
+      "id": 4
+    },
+    {
+      "username": "aas",
+      "password": "a",
+      "id": 5
+    }
+  ]
+}

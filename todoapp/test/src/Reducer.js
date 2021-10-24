@@ -18,20 +18,21 @@ export default function appReducer(state, action) {
           title: action.title,
           description: action.description,
           dateCreated: action.dateCreated,
-          completed: action.completed,
-          dateCompleted: action.dateCompleted,
+          completed: false,
+          dateCompleted: "",
         };
         return [createTodoJson, ...state];
       case "TOGGLE_TODO": {
         const date = new Date().toLocaleDateString();
         const time = new Date().toLocaleTimeString();
 
-        state.map((todo) => {
+        state.forEach((todo) => {
           if (todo.id === action.id) {
             todo.completed = !action.completed;
             todo.dateCompleted = `${date} ${time}`;
           }
         });
+
         console.log(state);
         return state;
       }

@@ -8,21 +8,19 @@ import { useResource } from "react-request-hook";
 import { useEffect } from "react";
 
 function App() {
-  const [state, dispatch] = useReducer(appReducer, {
-    user: "",
-    todoList: [],
-  });
   const [todoList, getTodos] = useResource(() => ({
     url: "/todoList",
     method: "get",
   }));
-
+  const [state, dispatch] = useReducer(appReducer, {
+    user: "",
+    todoList: [],
+  });
   useEffect(getTodos, []);
 
   useEffect(() => {
-    if (todoList && todoList.data && todoList.isLoading === false) {
+    if (todoList && todoList.data) {
       dispatch({ type: "FETCH_TODOS", todoList: todoList.data.reverse() });
-      console.log("app useEffect");
     }
   }, [todoList]);
 

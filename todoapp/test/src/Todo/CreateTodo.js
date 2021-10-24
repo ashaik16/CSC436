@@ -30,7 +30,6 @@ export default function CreateTodo() {
   }
   useEffect(() => {
     if (todo && todo.isLoading === false && todo.data) {
-      console.log("create todo useEffect");
       dispatch({
         type: "CREATE_TODO",
         id: todo.data.id,
