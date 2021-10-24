@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { StateContext } from "../Contexts";
 import Todo from "./Todo";
 
@@ -7,7 +7,6 @@ import Todo from "./Todo";
 export default function TodoList() {
   const { state } = useContext(StateContext);
   const { todoList } = state;
-
   return (
     <div>
       <h2>

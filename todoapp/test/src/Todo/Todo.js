@@ -10,41 +10,52 @@ export default function Todo(props) {
   const completed = props.completed;
   const dateCompleted = props.dateCompleted;
   const id = props.id;
+
   const { dispatch } = useContext(StateContext);
-
-  const [deleteData, deleteTodoFunction] = useResource((id) => ({
-    url: "/todoList/" + id,
-    method: "delete",
-  }));
-  useEffect(() => {
-    if (deleteData && deleteData.data) {
-      dispatch({ type: "DELETE_TODO", id });
-    }
-  }, [deleteData]);
-
-  function onDeleteHandler(id) {
-    deleteTodoFunction(id);
-  }
 
   const [toggleData, toggleTodoFunction] = useResource((id) => ({
     url: "/todoList/" + id,
     method: "patch",
     data: { dateCompleted: dateCompleted, completed: completed },
   }));
-  function onCompleteHandler(check) {
+
+  console.log(toggleData);
+  // console.log(toggleTodoFunction);
+
+  function onCompleteHandler(id) {
     toggleTodoFunction(id);
   }
 
   useEffect(() => {
-    if (toggleData && toggleData.data && toggleData.isLoading === false) {
+    if (
+      toggleData.data.completed === true &&
+      toggleData.isLoading === false &&
+      toggleData.data
+    ) {
       dispatch({
         type: "TOGGLE_TODO",
-        id: toggleData.data.id,
-        completed: toggleData.data.completed,
+        id,
         dateCompleted: toggleData.data.dateCompleted,
+        completed: toggleData.data.completed,
       });
+      console.log("toggle useEffect");
     }
   }, [toggleData]);
+
+  // const [deleteData, deleteTodoFunction] = useResource((id) => ({
+  //   url: "/todoList/" + id,
+  //   method: "delete",
+  // }));
+
+  function onDeleteHandler(id) {
+    // deleteTodoFunction(id);
+  }
+  // useEffect(() => {
+  //   if (deleteData && deleteData.isLoading === false && deleteData.data) {
+  //     dispatch({ type: "DELETE_TODO", id });
+  //     console.log("delete useEffect");
+  //   }
+  // }, [deleteData]);
   return (
     <div>
       <h3>{`Title: ${title}`}</h3>
@@ -59,7 +70,7 @@ export default function Todo(props) {
           type="checkbox"
           id="completed"
           name="completed"
-          onClick={() => onCompleteHandler(completed)}
+          onClick={() => onCompleteHandler(id)}
           value={completed}
         />
       </div>

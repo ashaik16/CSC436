@@ -23,14 +23,6 @@
       "dateCreated": "11/10/15",
       "completed": false,
       "dateCompleted": ""
-    },
-    {
-      "title": "aaaa",
-      "description": "aaaa",
-      "dateCreated": "10/23/2021",
-      "completed": false,
-      "dateCompleted": "10/23/2021 5:56:43 PM",
-      "id": 4
     }
   ],
   "users": [
@@ -43,16 +35,6 @@
       "username": "a",
       "password": "a",
       "id": 2
-    },
-    {
-      "username": "s",
-      "password": "s",
-      "id": 3
-    },
-    {
-      "username": "as",
-      "password": "ss",
-      "id": 4
     }
   ]
 }
