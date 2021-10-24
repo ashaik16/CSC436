@@ -9,29 +9,38 @@ export default function Todo(props) {
   const dateCreated = props.dateCreated;
   const completed = props.completed;
   const dateCompleted = props.dateCompleted;
+
   // const { completeObject, setCompleteObject } = useState({
   //   completed: false,
   //   dateCompleted: "",
   // });
 
-  // const completed = props.completeObject.completed;
-  // const dateCompleted = props.completeObject.dateCompleted;
+  // const [completed, setCompleted] = useState(props.completed);
+  // const [dateCompleted, setDateCompleted] = useState(props.completed);
   const id = props.id;
   const { dispatch } = useContext(StateContext);
 
-  const [toggleData, toggleTodoFunction] = useResource((id) => ({
-    url: "/todoList/" + id,
-    method: "patch",
-    data: {
-      completed: completed,
-      dateCompleted: dateCompleted,
-    },
-  }));
+  const [toggleData, toggleTodoFunction] = useResource(
+    (id, updatedComplete, updateDateCompleted) => ({
+      url: "/todoList/" + id,
+      method: "patch",
+      data: {
+        completed: updatedComplete,
+        dateCompleted: updateDateCompleted,
+      },
+    })
+  );
 
   console.log(toggleData);
 
   function onCompleteHandler() {
-    toggleTodoFunction(id);
+    // setCompleted(completed);
+    // setDateCompleted(dateCompleted);
+    const date = new Date().toLocaleDateString();
+    const time = new Date().toLocaleTimeString();
+    const updatedComplete = !completed;
+    const updateDateCompleted = date + time;
+    toggleTodoFunction(id, updatedComplete, updateDateCompleted);
   }
 
   useEffect(() => {
@@ -80,6 +89,7 @@ export default function Todo(props) {
           //defaultChecked={props.completed}
           // onChange={() => onCompleteHandler(props.id)}
           //defaultChecked={completed}
+          checked={false}
         />
       </div>
 
