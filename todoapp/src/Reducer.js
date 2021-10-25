@@ -23,15 +23,13 @@ export default function appReducer(state, action) {
         };
         return [createTodoJson, ...state];
       case "TOGGLE_TODO": {
-        const date = new Date().toLocaleDateString();
-        const time = new Date().toLocaleTimeString();
         state.map((todo) => {
           if (todo.id === action.id) {
             todo.completed = action.completed;
             todo.dateCompleted = action.dateCompleted;
           }
         });
-        console.log(state);
+
         return state;
       }
       case "DELETE_TODO": {

@@ -24,8 +24,6 @@ export default function Todo(props) {
     })
   );
 
-  console.log(toggleData);
-
   function onCompleteHandler() {
     const date = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
@@ -38,7 +36,6 @@ export default function Todo(props) {
 
   useEffect(() => {
     if (toggleData && toggleData.isLoading === false && toggleData.data) {
-      console.log("toggle useEffect");
       dispatch({
         type: "TOGGLE_TODO",
         id,
@@ -57,7 +54,6 @@ export default function Todo(props) {
     deleteTodoFunction(id);
   }
   useEffect(() => {
-    console.log("delete useEffect");
     if (deleteData && deleteData.data && deleteData.isLoading === false) {
       dispatch({ type: "DELETE_TODO", id });
     }

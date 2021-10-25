@@ -30,7 +30,6 @@ export default function Register() {
   }));
   useEffect(() => {
     if (user && user.data) {
-      console.log("register useEffect");
       dispatch({ type: "REGISTER", username: user.data.username });
     }
   }, [user]);
