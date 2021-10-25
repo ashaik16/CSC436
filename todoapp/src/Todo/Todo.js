@@ -10,13 +10,6 @@ export default function Todo(props) {
   const completed = props.completed;
   const dateCompleted = props.dateCompleted;
 
-  // const { completeObject, setCompleteObject } = useState({
-  //   completed: false,
-  //   dateCompleted: "",
-  // });
-
-  // const [completed, setCompleted] = useState(props.completed);
-  // const [dateCompleted, setDateCompleted] = useState(props.completed);
   const id = props.id;
   const { dispatch } = useContext(StateContext);
 
@@ -34,12 +27,12 @@ export default function Todo(props) {
   console.log(toggleData);
 
   function onCompleteHandler() {
-    // setCompleted(completed);
-    // setDateCompleted(dateCompleted);
     const date = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
     const updatedComplete = !completed;
-    const updateDateCompleted = date + time;
+    var updateDateCompleted = date + time;
+    if (!updatedComplete) updateDateCompleted = "";
+
     toggleTodoFunction(id, updatedComplete, updateDateCompleted);
   }
 
@@ -62,7 +55,6 @@ export default function Todo(props) {
 
   function onDeleteHandler() {
     deleteTodoFunction(id);
-    //  dispatch({ type: "DELETE_TODO", id });
   }
   useEffect(() => {
     console.log("delete useEffect");
@@ -86,9 +78,6 @@ export default function Todo(props) {
           name="completed"
           value={completed}
           onClick={onCompleteHandler}
-          //defaultChecked={props.completed}
-          // onChange={() => onCompleteHandler(props.id)}
-          //defaultChecked={completed}
           checked={false}
         />
       </div>

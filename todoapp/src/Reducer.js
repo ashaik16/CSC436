@@ -25,13 +25,6 @@ export default function appReducer(state, action) {
       case "TOGGLE_TODO": {
         const date = new Date().toLocaleDateString();
         const time = new Date().toLocaleTimeString();
-
-        // state.map((todo) => {
-        //   if (todo.id === action.id) {
-        //     todo.completed = !action.completed;
-        //     todo.dateCompleted = `${date} ${time}`;
-        //   }
-        // });
         state.map((todo) => {
           if (todo.id === action.id) {
             todo.completed = action.completed;
