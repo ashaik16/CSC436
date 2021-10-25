@@ -20,7 +20,6 @@ export default function Login() {
   }));
 
   useEffect(() => {
-    console.log("login useEffect");
     if (user && user.data) {
       if (user.data.length > 0) {
         setLoginFailed(false);
