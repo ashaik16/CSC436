@@ -27,6 +27,13 @@ export default function CreateTodo() {
   function handleOnSubmit(event) {
     event.preventDefault();
     createTodos({ createTodoObject });
+    setCreateTodoObject({
+      title: "",
+      description: "",
+      dateCreated: "",
+      completed: false,
+      dateCompleted: "",
+    });
   }
   useEffect(() => {
     if (todo && todo.isLoading === false && todo.data) {

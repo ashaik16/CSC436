@@ -6,11 +6,6 @@ import TodoList from "../Todo/TodoList";
 import { useContext } from "react";
 import { StateContext } from "../Contexts";
 export default function UserBar() {
-  // {
-  // user,
-  // dispatch,
-  // todoList,
-  //}
   const { state } = useContext(StateContext);
   const { user } = state;
   if (user) {
