@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { StateContext } from "../Contexts";
 import Todo from "./Todo";
 
@@ -10,9 +10,9 @@ export default function TodoList() {
 
   return (
     <div>
-      <h2>
+      {/* <h2>
         <u>Todo List</u>
-      </h2>
+      </h2> */}
       <ul>
         {todoList.map((todoItem, i) => (
           <ol key={+i}>

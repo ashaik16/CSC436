@@ -1,16 +1,12 @@
-import UserBar from "./User/UserBar";
-
+import { mount, route } from "navi";
 import React, { useReducer } from "react";
+import { Router, View } from "react-navi";
+import { StateContext } from "./Contexts";
+import TodoPage from "./pages/TodoPage";
 //import * as myConstClass from "./Todo/DummyTodoList";
 import appReducer from "./Reducer";
-import { StateContext } from "./Contexts";
-import { useResource } from "react-request-hook";
-import { useEffect } from "react";
-import HomePage from "./pages/HomePage";
 import CreateTodo from "./Todo/CreateTodo";
-import TodoPage from "./pages/TodoPage";
-import { route, mount } from "navi";
-import { Router, View } from "react-navi";
+import UserBar from "./User/UserBar";
 
 function App() {
   const routes = mount({
@@ -25,27 +21,16 @@ function App() {
     todoList: [],
   });
 
-  // const [todoList, getTodos] = useResource(() => ({
-  //   url: "/todoList",
-  //   method: "get",
-  // }));
-
-  // useEffect(getTodos, []);
-
-  // useEffect(() => {
-  //   if (todoList && todoList.data && todoList.isLoading === false) {
-  //     dispatch({ type: "FETCH_TODOS", todoList: todoList.data.reverse() });
-  //   }
-  // }, [todoList]);
-
   return (
     <div>
       <StateContext.Provider value={{ state: state, dispatch: dispatch }}>
         <Router routes={routes}>
-          <div style={{ padding: 8 }}>
-            {/* <UserBar /> */}
-            <View />
-          </div>
+          {/* <div style={{ padding: 8 }}> */}
+          {/* <Container> */}
+          {/* <UserBar /> */}
+          <View />
+          {/* </Container> */}
+          {/* </div> */}
         </Router>
       </StateContext.Provider>
     </div>

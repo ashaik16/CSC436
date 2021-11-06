@@ -4,21 +4,13 @@ import { useResource } from "react-request-hook";
 import TodoList from "../Todo/TodoList";
 
 export default function HomePage() {
-  const { state, dispatch } = useContext(StateContext);
-  const [posts, getPosts] = useResource(() => ({
-    url: "/posts",
-    method: "get",
-  }));
+  const { dispatch } = useContext(StateContext);
+
   const [todoList, getTodos] = useResource(() => ({
     url: "/todoList",
     method: "get",
   }));
-  useEffect(getPosts, []);
-  useEffect(() => {
-    if (posts && posts.data) {
-      dispatch({ type: "FETCH_POSTS", posts: posts.data.reverse() });
-    }
-  }, [posts]);
+
   useEffect(getTodos, []);
 
   useEffect(() => {

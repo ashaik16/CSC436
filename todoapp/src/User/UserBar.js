@@ -1,53 +1,69 @@
+import { useContext, useState } from "react";
+import { Button, Container } from "react-bootstrap";
+import { Link } from "react-navi";
+import { StateContext } from "../Contexts";
+import HomePage from "../pages/HomePage";
 import Login from "./Login";
 import Logout from "./Logout";
 import Register from "./Register";
-import CreateTodo from "../Todo/CreateTodo";
-import HomePage from "../pages/HomePage";
-import { useContext } from "react";
-import { StateContext } from "../Contexts";
-import { route, mount } from "navi";
-import { Router, View } from "react-navi";
-import TodoPage from "../pages/TodoPage";
-import { Link } from "react-navi";
 export default function UserBar() {
   const { state } = useContext(StateContext);
   const { user } = state;
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
   if (user) {
     return (
-      <div>
+      <Container>
         <Logout />
-        <br />
-        <br />
-        <hr />
-        <br />
-        {user && <Link href="/todo/create">Create New Post</Link>}
 
+        <hr />
+
+        {user && <Link href="/todo/create">Create New Post</Link>}
+        <hr />
         {/* {user && <CreateTodo />} */}
 
         <HomePage />
-      </div>
+      </Container>
     );
   } else {
     return (
-      <div>
+      <Container>
         {!user && (
-          <div>
-            <h2>
-              <u>Login</u>
-            </h2>
+          // <div>
+          //   <h2>
+          //     <u>Login</u>
+          //   </h2>
 
-            <Login />
-            <br />
-            <hr />
-            <h1>OR</h1>
-            <h2>
-              <u>Register For New User</u>
-            </h2>
+          //   <Login />
+          //   <br />
+          //   <hr />
+          //   <h1>OR</h1>
+          //   <h2>
+          //     <u>Register For New User</u>
+          //   </h2>
 
-            <Register />
+          //   <Register />
+          // </div>
+
+          <div className="justify-content-end">
+            <Button variant="link" onClick={(e) => setShowLogin(true)}>
+              Login
+            </Button>
+            <Login
+              show={showLogin}
+              handleClose={() => setShowLogin(false)}
+              setShowLogin={setShowLogin}
+            />
+            <Button variant="link" onClick={(e) => setShowRegister(true)}>
+              Register
+            </Button>
+            <Register
+              show={showRegister}
+              handleClose={() => setShowRegister(false)}
+            />
           </div>
         )}
-      </div>
+      </Container>
     );
   }
 }

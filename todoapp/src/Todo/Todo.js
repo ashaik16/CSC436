@@ -1,9 +1,11 @@
-import React from "react";
-import { useContext, useEffect, useState } from "react";
-import { StateContext } from "../Contexts";
+import React, { useContext, useEffect } from "react";
+import { Button, Card } from "react-bootstrap";
+import { Link, useNavigation } from "react-navi";
 import { useResource } from "react-request-hook";
-import { Link } from "react-navi";
+import { StateContext } from "../Contexts";
+import { Form } from "react-bootstrap";
 export default function Todo(props) {
+  const navigation = useNavigation();
   const title = props.title;
   const description = props.description;
   const dateCreated = props.dateCreated;
@@ -49,6 +51,7 @@ export default function Todo(props) {
         dateCompleted: toggleData.data.dateCompleted,
         completed: toggleData.data.completed,
       });
+      navigation.navigate("/");
     }
   }, [toggleData]);
 
@@ -63,53 +66,106 @@ export default function Todo(props) {
   useEffect(() => {
     if (deleteData && deleteData.data && deleteData.isLoading === false) {
       dispatch({ type: "DELETE_TODO", id });
+      navigation.navigate("/");
     }
   }, [deleteData]);
   return (
-    <div>
-      <hr />
-      <Link href={`/todo/${id}`}>{title}</Link>
-      {/* <h3>{`Title: ${title}`}</h3> */}
-      {/* <div>{`Description: ${description}`}</div> */}
-      <div>{`Description: ${processedContent}`}</div>
-      <div>{`Date Created: ${dateCreated}`}</div>
+    // <div style={{ marginLeft: "-54px" }}>
+    <Card>
+      <Card.Body>
+        <Card.Title>
+          <Link href={`/todo/${id}`}>{title}</Link>
+        </Card.Title>
+        <Card.Subtitle>
+          <div>{`Date Created: ${dateCreated}`}</div>
+        </Card.Subtitle>
+        <Card.Subtitle>
+          <div>{`Description: ${processedContent}`}</div>
+        </Card.Subtitle>
 
-      <div>
-        {completed && <label> Status :</label>}
-        <label htmlFor="completed"> Task Completed</label>
-
-        <input
-          type="checkbox"
-          id="completed"
-          name="completed"
-          value={completed}
-          onClick={onCompleteHandler}
-          defaultChecked={false}
-        />
-      </div>
-
-      <div>
-        {completed && (
-          <div>
-            <label htmlFor="dateCompleted"> Completed On :</label>
-            <input
-              type="text"
-              name="dateCompleted"
-              id="dateCompleted"
-              value={dateCompleted}
-              disabled={true}
-            />
-          </div>
-        )}
-      </div>
-      <div>
-        {" "}
-        <button type="button" onClick={onDeleteHandler}>
-          Delete
-        </button>
+        <Card.Subtitle>Status:</Card.Subtitle>
+        <div>
+          <Form.Check
+            type="checkbox"
+            label="Task Completed"
+            id="completed"
+            name="completed"
+            value={completed}
+            onClick={onCompleteHandler}
+            defaultChecked={false}
+          />
+        </div>
+        <div>
+          {completed && (
+            <div>
+              <label htmlFor="dateCompleted"> Completed On :</label>
+              <input
+                type="text"
+                name="dateCompleted"
+                id="dateCompleted"
+                value={dateCompleted}
+                disabled={true}
+              />
+            </div>
+          )}
+        </div>
+        <Button
+          variant="link"
+          // onClick={(e) => {
+          //   deletePost(id);
+          // }}
+          onClick={onDeleteHandler}
+        >
+          Delete Todo
+        </Button>
+        {short && <Link href={`/todo/${id}`}>View full todo</Link>}
         <br />
-        {short && <Link href={`/todo/${id}`}>View full post</Link>}
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
+    // </div>
+    // <div>
+    //   <hr />
+    //   <Link href={`/todo/${id}`}>{title}</Link>
+
+    //   <div>{`Description: ${processedContent}`}</div>
+    //   <div>{`Date Created: ${dateCreated}`}</div>
+
+    //   <div>
+    //     {completed && <label> Status :</label>}
+    //     <label htmlFor="completed"> Task Completed</label>
+
+    //     <input
+    //       type="checkbox"
+    //       id="completed"
+    //       name="completed"
+    //       value={completed}
+    //       onClick={onCompleteHandler}
+    //       defaultChecked={false}
+    //     />
+    //   </div>
+
+    //   <div>
+    //     {completed && (
+    //       <div>
+    //         <label htmlFor="dateCompleted"> Completed On :</label>
+    //         <input
+    //           type="text"
+    //           name="dateCompleted"
+    //           id="dateCompleted"
+    //           value={dateCompleted}
+    //           disabled={true}
+    //         />
+    //       </div>
+    //     )}
+    //   </div>
+    //   <div>
+    //     {" "}
+    //     <button type="button" onClick={onDeleteHandler}>
+    //       Delete
+    //     </button>
+    //     <br />
+    //     {short && <Link href={`/todo/${id}`}>View full post</Link>}
+    //   </div>
+    // </div>
   );
 }
