@@ -2,7 +2,7 @@ import Login from "./Login";
 import Logout from "./Logout";
 import Register from "./Register";
 import CreateTodo from "../Todo/CreateTodo";
-import TodoList from "../Todo/TodoList";
+import HomePage from "../pages/HomePage";
 import { useContext } from "react";
 import { StateContext } from "../Contexts";
 export default function UserBar() {
@@ -19,7 +19,7 @@ export default function UserBar() {
 
         {user && <CreateTodo />}
 
-        <TodoList />
+        <HomePage />
       </div>
     );
   } else {

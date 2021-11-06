@@ -6,24 +6,24 @@ import appReducer from "./Reducer";
 import { StateContext } from "./Contexts";
 import { useResource } from "react-request-hook";
 import { useEffect } from "react";
-
+import HomePage from "./pages/HomePage";
 function App() {
   const [state, dispatch] = useReducer(appReducer, {
     user: "",
     todoList: [],
   });
-  const [todoList, getTodos] = useResource(() => ({
-    url: "/todoList",
-    method: "get",
-  }));
+  // const [todoList, getTodos] = useResource(() => ({
+  //   url: "/todoList",
+  //   method: "get",
+  // }));
 
-  useEffect(getTodos, []);
+  // useEffect(getTodos, []);
 
-  useEffect(() => {
-    if (todoList && todoList.data && todoList.isLoading === false) {
-      dispatch({ type: "FETCH_TODOS", todoList: todoList.data.reverse() });
-    }
-  }, [todoList]);
+  // useEffect(() => {
+  //   if (todoList && todoList.data && todoList.isLoading === false) {
+  //     dispatch({ type: "FETCH_TODOS", todoList: todoList.data.reverse() });
+  //   }
+  // }, [todoList]);
 
   return (
     <div>

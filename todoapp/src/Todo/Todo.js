@@ -28,7 +28,7 @@ export default function Todo(props) {
     const date = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
     const updatedComplete = !completed;
-    var updateDateCompleted = date + time;
+    var updateDateCompleted = date + " " + time;
     if (!updatedComplete) updateDateCompleted = "";
 
     toggleTodoFunction(id, updatedComplete, updateDateCompleted);
