@@ -2,8 +2,9 @@ import React, { useContext, useState } from "react";
 import { StateContext } from "../Contexts";
 import { useResource } from "react-request-hook";
 import { useEffect } from "react";
-
+import { useNavigation } from "react-navi";
 export default function CreateTodo() {
+  const navigation = useNavigation();
   const [createTodoObject, setCreateTodoObject] = useState({
     title: "",
     description: "",
@@ -46,6 +47,7 @@ export default function CreateTodo() {
         completed: todo.data.completed,
         dateCompleted: todo.data.dateCompleted,
       });
+      navigation.navigate(`/todo/${todo.data.id}`);
     }
   }, [todo]);
 
