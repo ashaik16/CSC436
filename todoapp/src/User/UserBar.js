@@ -8,6 +8,7 @@ import { StateContext } from "../Contexts";
 import { route, mount } from "navi";
 import { Router, View } from "react-navi";
 import TodoPage from "../pages/TodoPage";
+import { Link } from "react-navi";
 export default function UserBar() {
   const { state } = useContext(StateContext);
   const { user } = state;
@@ -19,10 +20,11 @@ export default function UserBar() {
         <br />
         <hr />
         <br />
+        {user && <Link href="/todo/create">Create New Post</Link>}
 
-        {user && <CreateTodo />}
-        {/* 
-        <HomePage /> */}
+        {/* {user && <CreateTodo />} */}
+
+        <HomePage />
       </div>
     );
   } else {
@@ -44,7 +46,7 @@ export default function UserBar() {
 
             <Register />
           </div>
-        )}{" "}
+        )}
       </div>
     );
   }

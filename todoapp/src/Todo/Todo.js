@@ -67,6 +67,7 @@ export default function Todo(props) {
   }, [deleteData]);
   return (
     <div>
+      <hr />
       <Link href={`/todo/${id}`}>{title}</Link>
       {/* <h3>{`Title: ${title}`}</h3> */}
       {/* <div>{`Description: ${description}`}</div> */}
@@ -106,6 +107,7 @@ export default function Todo(props) {
         <button type="button" onClick={onDeleteHandler}>
           Delete
         </button>
+        <br />
         {short && <Link href={`/todo/${id}`}>View full post</Link>}
       </div>
     </div>

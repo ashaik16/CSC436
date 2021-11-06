@@ -14,7 +14,7 @@ import { Router, View } from "react-navi";
 
 function App() {
   const routes = mount({
-    "/": route({ view: <HomePage /> }),
+    "/": route({ view: <UserBar /> }),
     "/todo/create": route({ view: <CreateTodo /> }),
     "/todo/:id": route((req) => {
       return { view: <TodoPage id={req.params.id} /> };
@@ -43,7 +43,7 @@ function App() {
       <StateContext.Provider value={{ state: state, dispatch: dispatch }}>
         <Router routes={routes}>
           <div style={{ padding: 8 }}>
-            <UserBar />
+            {/* <UserBar /> */}
             <View />
           </div>
         </Router>
