@@ -23,6 +23,7 @@ export default function TodoList() {
               id={todoItem.id}
               completed={todoItem.completed}
               dateCompleted={todoItem.dateCompleted}
+              short={true}
             />
           </ol>
         ))}

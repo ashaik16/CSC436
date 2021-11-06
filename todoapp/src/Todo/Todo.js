@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { StateContext } from "../Contexts";
 import { useResource } from "react-request-hook";
-
+import { Link } from "react-navi";
 export default function Todo(props) {
   const title = props.title;
   const description = props.description;
@@ -11,8 +11,15 @@ export default function Todo(props) {
   const dateCompleted = props.dateCompleted;
 
   const id = props.id;
+  const short = props.short;
   const { dispatch } = useContext(StateContext);
 
+  let processedContent = description;
+  if (short) {
+    if (description.length > 30) {
+      processedContent = description.substring(0, 30) + "...";
+    }
+  }
   const [toggleData, toggleTodoFunction] = useResource(
     (id, updatedComplete, updateDateCompleted) => ({
       url: "/todoList/" + id,
@@ -60,8 +67,10 @@ export default function Todo(props) {
   }, [deleteData]);
   return (
     <div>
-      <h3>{`Title: ${title}`}</h3>
-      <div>{`Description: ${description}`}</div>
+      <Link href={`/todo/${id}`}>{title}</Link>
+      {/* <h3>{`Title: ${title}`}</h3> */}
+      {/* <div>{`Description: ${description}`}</div> */}
+      <div>{`Description: ${processedContent}`}</div>
       <div>{`Date Created: ${dateCreated}`}</div>
 
       <div>
@@ -74,7 +83,7 @@ export default function Todo(props) {
           name="completed"
           value={completed}
           onClick={onCompleteHandler}
-          checked={false}
+          defaultChecked={false}
         />
       </div>
 
@@ -97,6 +106,7 @@ export default function Todo(props) {
         <button type="button" onClick={onDeleteHandler}>
           Delete
         </button>
+        {short && <Link href={`/todo/${id}`}>View full post</Link>}
       </div>
     </div>
   );
