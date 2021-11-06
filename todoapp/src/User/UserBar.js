@@ -5,10 +5,21 @@ import CreateTodo from "../Todo/CreateTodo";
 import HomePage from "../pages/HomePage";
 import { useContext } from "react";
 import { StateContext } from "../Contexts";
+import { route, mount } from "navi";
+import { Router, View } from "react-navi";
+import TodoPage from "../pages/TodoPage";
+
 export default function UserBar() {
   const { state } = useContext(StateContext);
   const { user } = state;
   if (user) {
+    const routes = mount({
+      "/": route({ view: <HomePage /> }),
+      "/todo/create": route({ view: <CreateTodo /> }),
+      "/todo/:id": route((req) => {
+        return { view: <TodoPage id={req.params.id} /> };
+      }),
+    });
     return (
       <div>
         <Logout />
@@ -18,8 +29,8 @@ export default function UserBar() {
         <br />
 
         {user && <CreateTodo />}
-
-        <HomePage />
+        {/* 
+        <HomePage /> */}
       </div>
     );
   } else {
