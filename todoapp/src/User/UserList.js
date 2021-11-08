@@ -13,7 +13,7 @@ export default function UserList() {
       <ul>
         {userList.map((user, i) => (
           <ol key={+i}>
-            <User id={user.id} username={user.username} />
+            <User id={user.id} username={user.username} short={true} />
           </ol>
         ))}
       </ul>

@@ -8,6 +8,7 @@ export default function User(props) {
   const navigation = useNavigation();
   const id = props.id;
   const username = props.username;
+  const short = props.short;
   const { dispatch } = useContext(StateContext);
 
   return (
@@ -16,14 +17,14 @@ export default function User(props) {
       <Card.Body>
         <Card.Header as="h5" style={{ backgroundColor: "#85C1E9" }}>
           {" "}
-          <Link href={`/user/${id}`}>{username}</Link>
+          <Link href={`/users/${id}`}>{username}</Link>
         </Card.Header>
         <Card.Title dark></Card.Title>
         <Card.Subtitle>
           <div>{`User Id: ${id}`}</div>
         </Card.Subtitle>
         &nbsp; &nbsp;
-        {<Link href={`/user/${id}`}>View User Profile</Link>}
+        {short && <Link href={`/users/${id}`}>View User Profile</Link>}
         <br />
       </Card.Body>
     </Card>
