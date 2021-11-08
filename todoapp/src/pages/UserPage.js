@@ -1,27 +1,22 @@
-import React, { useEffect, useContext } from "react";
-import { StateContext } from "../Contexts";
+import React, { useEffect } from "react";
 import { useResource } from "react-request-hook";
-import UserList from "../User/UserList";
-import UserBar from "../User/UserBar";
-export default function UserPage() {
-  const { dispatch } = useContext(StateContext);
+import { Link } from "react-navi";
+import User from "../User/User";
 
-  const [userList, getUsers] = useResource(() => ({
-    url: "/users",
+export default function UserPage({ id }) {
+  const [user, getUser] = useResource(() => ({
+    url: "/users/" + id,
     method: "get",
   }));
+  useEffect(getUser, [id]);
 
-  useEffect(getUsers, []);
-
-  useEffect(() => {
-    if (userList && userList.data && userList.isLoading === false) {
-      dispatch({ type: "FETCH_USERS", userList: userList.data });
-    }
-  }, [userList]);
-  const { isLoading } = userList;
   return (
-    <>
-      {isLoading && "User's loading..."} <UserList />
-    </>
+    <div>
+      {user && user.data ? <User {...user.data} /> : "Loading..."}
+      <hr />
+      <div>
+        <Link href="/">Go back</Link>
+      </div>
+    </div>
   );
 }

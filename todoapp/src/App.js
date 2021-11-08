@@ -3,6 +3,7 @@ import React, { useReducer } from "react";
 import { Router, View } from "react-navi";
 import { StateContext } from "./Contexts";
 import TodoPage from "./pages/TodoPage";
+import UserListPage from "./pages/UserListPage";
 import UserPage from "./pages/UserPage";
 //import * as myConstClass from "./Todo/DummyTodoList";
 import appReducer from "./Reducer";
@@ -12,10 +13,13 @@ import UserBar from "./User/UserBar";
 function App() {
   const routes = mount({
     "/": route({ view: <UserBar /> }),
-    "/users": route({ view: <UserPage /> }),
+    "/users": route({ view: <UserListPage /> }),
     "/todo/create": route({ view: <CreateTodo /> }),
     "/todo/:id": route((req) => {
       return { view: <TodoPage id={req.params.id} /> };
+    }),
+    "/users/:id": route((req) => {
+      return { view: <UserPage id={req.params.id} /> };
     }),
   });
   const [state, dispatch] = useReducer(appReducer, {

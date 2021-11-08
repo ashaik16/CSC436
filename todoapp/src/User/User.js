@@ -23,7 +23,7 @@ export default function User(props) {
           <div>{`User Id: ${id}`}</div>
         </Card.Subtitle>
         &nbsp; &nbsp;
-        {<Link href={`/user/${id}`}>View User todo</Link>}
+        {<Link href={`/user/${id}`}>View User Profile</Link>}
         <br />
       </Card.Body>
     </Card>
