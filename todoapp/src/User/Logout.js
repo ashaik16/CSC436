@@ -6,6 +6,7 @@ export default function Logout() {
   const { user } = state;
   return (
     <form
+      style={{ backgroundColor: "#85C1E9" }}
       onSubmit={(e) => {
         e.preventDefault();
         dispatch({ type: "LOGOUT" });

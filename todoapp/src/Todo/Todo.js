@@ -71,18 +71,19 @@ export default function Todo(props) {
   }, [deleteData]);
   return (
     // <div style={{ marginLeft: "-54px" }}>
-    <Card>
+    <Card style={{ backgroundColor: "#D6EAF8" }}>
       <Card.Body>
-        <Card.Title>
+        <Card.Header as="h5" style={{ backgroundColor: "#85C1E9" }}>
+          {" "}
           <Link href={`/todo/${id}`}>{title}</Link>
-        </Card.Title>
+        </Card.Header>
+        <Card.Title dark></Card.Title>
         <Card.Subtitle>
           <div>{`Date Created: ${dateCreated}`}</div>
         </Card.Subtitle>
         <Card.Subtitle>
           <div>{`Description: ${processedContent}`}</div>
         </Card.Subtitle>
-
         <Card.Subtitle>Status:</Card.Subtitle>
         <div>
           <Form.Check
@@ -109,15 +110,18 @@ export default function Todo(props) {
             </div>
           )}
         </div>
+        <br />
         <Button
-          variant="link"
+          variant="outline-danger"
           // onClick={(e) => {
           //   deletePost(id);
           // }}
+
           onClick={onDeleteHandler}
         >
           Delete Todo
         </Button>
+        &nbsp; &nbsp;
         {short && <Link href={`/todo/${id}`}>View full todo</Link>}
         <br />
       </Card.Body>

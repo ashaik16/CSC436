@@ -3,6 +3,7 @@ import { StateContext } from "../Contexts";
 import { useResource } from "react-request-hook";
 import { useEffect } from "react";
 import { useNavigation } from "react-navi";
+import { Container } from "react-bootstrap";
 export default function CreateTodo() {
   const navigation = useNavigation();
   const [createTodoObject, setCreateTodoObject] = useState({
@@ -52,51 +53,53 @@ export default function CreateTodo() {
   }, [todo]);
 
   return (
-    <form onSubmit={handleOnSubmit}>
-      <div>
-        <h2>
-          <u>Create Todo Task</u>
-        </h2>
-      </div>
-      <div>
-        <label htmlFor="title">
-          <b> Title: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</b>
-        </label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          onChange={(event) => {
-            setCreateTodoObject({
-              ...createTodoObject,
-              title: event.target.value,
-            });
-          }}
-          value={createTodoObject.title}
-          required
-        />
-      </div>
-      <br />
-      <div>
-        <label htmlFor="description">
-          <b>Description: </b>
-        </label>
-        <textarea
-          name="description"
-          id="description"
-          onChange={(event) => {
-            setCreateTodoObject({
-              ...createTodoObject,
-              description: event.target.value,
-            });
-          }}
-          value={createTodoObject.description}
-        />
-      </div>
-      <br />
-      <div>
-        <input type="submit" value="Create" />
-      </div>
-    </form>
+    <div style={{ alignItems: "center" }}>
+      <form onSubmit={handleOnSubmit}>
+        <div>
+          <h2>
+            <u>Create Todo Task</u>
+          </h2>
+        </div>
+        <div>
+          <label htmlFor="title">
+            <b> Title: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</b>
+          </label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            onChange={(event) => {
+              setCreateTodoObject({
+                ...createTodoObject,
+                title: event.target.value,
+              });
+            }}
+            value={createTodoObject.title}
+            required
+          />
+        </div>
+        <br />
+        <div>
+          <label htmlFor="description">
+            <b>Description: </b>
+          </label>
+          <textarea
+            name="description"
+            id="description"
+            onChange={(event) => {
+              setCreateTodoObject({
+                ...createTodoObject,
+                description: event.target.value,
+              });
+            }}
+            value={createTodoObject.description}
+          />
+        </div>
+        <br />
+        <div>
+          <input type="submit" value="Create" />
+        </div>
+      </form>
+    </div>
   );
 }

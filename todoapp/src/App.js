@@ -22,7 +22,7 @@ function App() {
   });
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#85C1E9" }}>
       <StateContext.Provider value={{ state: state, dispatch: dispatch }}>
         <Router routes={routes}>
           {/* <div style={{ padding: 8 }}> */}
