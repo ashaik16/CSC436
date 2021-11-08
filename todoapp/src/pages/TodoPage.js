@@ -3,7 +3,7 @@ import { useResource } from "react-request-hook";
 import { Link } from "react-navi";
 import Todo from "../Todo/Todo";
 
-export default function PostPage({ id }) {
+export default function TodoPage({ id }) {
   const [todo, getTodo] = useResource(() => ({
     url: "/todoList/" + id,
     method: "get",

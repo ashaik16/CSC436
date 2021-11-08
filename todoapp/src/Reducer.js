@@ -6,6 +6,8 @@ export default function appReducer(state, action) {
         return action.username;
       case "LOGOUT":
         return "";
+      case "FETCH_USERS":
+        return action.userList;
       default:
         return state;
     }
@@ -45,5 +47,6 @@ export default function appReducer(state, action) {
   return {
     user: userReducer(state.user, action),
     todoList: todoReducer(state.todoList, action),
+    userList: userReducer(state.userList, action),
   };
 }
