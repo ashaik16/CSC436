@@ -18,6 +18,7 @@ export default function TodoList() {
           <ol key={+i}>
             <Todo
               title={todoItem.title}
+              author={todoItem.author}
               description={todoItem.description}
               dateCreated={todoItem.dateCreated}
               id={todoItem.id}

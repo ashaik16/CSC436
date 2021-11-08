@@ -6,8 +6,11 @@ import { useNavigation } from "react-navi";
 import { Container } from "react-bootstrap";
 export default function CreateTodo() {
   const navigation = useNavigation();
+  const { dispatch, state } = useContext(StateContext);
+  const { user } = state;
   const [createTodoObject, setCreateTodoObject] = useState({
     title: "",
+    author: user,
     description: "",
     dateCreated: new Date().toLocaleDateString(),
     completed: false,
@@ -19,18 +22,20 @@ export default function CreateTodo() {
     method: "post",
     data: {
       title: createTodoObject.title,
+      author: createTodoObject.author,
       description: createTodoObject.description,
       dateCreated: createTodoObject.dateCreated,
       completed: createTodoObject.completed,
       dateCompleted: createTodoObject.dateCompleted,
     },
   }));
-  const { dispatch } = useContext(StateContext);
+
   function handleOnSubmit(event) {
     event.preventDefault();
     createTodos({ createTodoObject });
     setCreateTodoObject({
       title: "",
+      author: user,
       description: "",
       dateCreated: "",
       completed: false,
@@ -43,6 +48,7 @@ export default function CreateTodo() {
         type: "CREATE_TODO",
         id: todo.data.id,
         title: todo.data.title,
+        author: todo.data.author,
         description: todo.data.description,
         dateCreated: todo.data.dateCreated,
         completed: todo.data.completed,

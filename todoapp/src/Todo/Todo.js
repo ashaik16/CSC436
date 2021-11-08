@@ -7,6 +7,7 @@ import { Form } from "react-bootstrap";
 export default function Todo(props) {
   const navigation = useNavigation();
   const title = props.title;
+  const author = props.author;
   const description = props.description;
   const dateCreated = props.dateCreated;
   const completed = props.completed;
@@ -78,6 +79,9 @@ export default function Todo(props) {
           <Link href={`/todo/${id}`}>{title}</Link>
         </Card.Header>
         <Card.Title dark></Card.Title>
+        <Card.Subtitle>
+          <div>{`Author: ${author}`}</div>
+        </Card.Subtitle>
         <Card.Subtitle>
           <div>{`Date Created: ${dateCreated}`}</div>
         </Card.Subtitle>

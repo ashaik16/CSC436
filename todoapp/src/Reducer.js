@@ -18,6 +18,7 @@ export default function appReducer(state, action) {
         const createTodoJson = {
           id: action.id,
           title: action.title,
+          author: action.author,
           description: action.description,
           dateCreated: action.dateCreated,
           completed: action.completed,
