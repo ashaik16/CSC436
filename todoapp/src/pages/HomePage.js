@@ -21,7 +21,7 @@ export default function HomePage() {
   const { isLoading } = todoList;
   return (
     <>
-      {isLoading && "Todo's loading..."} <TodoList />
+      {isLoading && "Todo's loading..."} <TodoList todoList={todoList.data} />
     </>
   );
 }

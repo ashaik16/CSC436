@@ -4,6 +4,8 @@ import { Link, useNavigation } from "react-navi";
 import { useResource } from "react-request-hook";
 import { StateContext } from "../Contexts";
 import { Form } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
+import { useState } from "react";
 export default function Todo(props) {
   const navigation = useNavigation();
   const title = props.title;
@@ -33,7 +35,7 @@ export default function Todo(props) {
       },
     })
   );
-
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   function onCompleteHandler() {
     const date = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
@@ -62,118 +64,100 @@ export default function Todo(props) {
   }));
 
   function onDeleteHandler() {
-    deleteTodoFunction(id);
+    setShowDeleteModal(true);
+
+    // deleteTodoFunction(id);
   }
   useEffect(() => {
     if (deleteData && deleteData.data && deleteData.isLoading === false) {
       dispatch({ type: "DELETE_TODO", id });
-      navigation.navigate("/");
     }
   }, [deleteData]);
+  function handleClose() {
+    setShowDeleteModal(false);
+  }
+  function modalDeleteHandler(event) {
+    event.preventDefault();
+    deleteTodoFunction(id);
+    navigation.navigate("/delete/" + title);
+    handleClose();
+  }
+
   return (
     // <div style={{ marginLeft: "-54px" }}>
-    <Card style={{ backgroundColor: "#D6EAF8" }}>
-      <Card.Body>
-        <Card.Header as="h5" style={{ backgroundColor: "#85C1E9" }}>
-          {" "}
-          <Link href={`/todo/${id}`}>{title}</Link>
-        </Card.Header>
-        <Card.Title dark></Card.Title>
-        <Card.Subtitle>
-          <div>{`Author: ${author}`}</div>
-        </Card.Subtitle>
-        <Card.Subtitle>
-          <div>{`Date Created: ${dateCreated}`}</div>
-        </Card.Subtitle>
-        <Card.Subtitle>
-          <div>{`Description: ${processedContent}`}</div>
-        </Card.Subtitle>
-        <Card.Subtitle>Status:</Card.Subtitle>
-        <div>
-          <Form.Check
-            type="checkbox"
-            label="Task Completed"
-            id="completed"
-            name="completed"
-            value={completed}
-            onClick={onCompleteHandler}
-            defaultChecked={false}
-          />
-        </div>
-        <div>
-          {completed && (
-            <div>
-              <label htmlFor="dateCompleted"> Completed On :</label>
-              <input
-                type="text"
-                name="dateCompleted"
-                id="dateCompleted"
-                value={dateCompleted}
-                disabled={true}
-              />
-            </div>
-          )}
-        </div>
-        <br />
-        <Button
-          variant="outline-danger"
-          // onClick={(e) => {
-          //   deletePost(id);
-          // }}
+    <div>
+      <Card style={{ backgroundColor: "#D6EAF8" }}>
+        <Card.Body>
+          <Card.Header as="h5" style={{ backgroundColor: "#85C1E9" }}>
+            {" "}
+            <Link href={`/todo/${id}`}>{title}</Link>
+          </Card.Header>
+          <Card.Title dark></Card.Title>
+          <Card.Subtitle>
+            <div>{`Author: ${author}`}</div>
+          </Card.Subtitle>
+          <Card.Subtitle>
+            <div>{`Date Created: ${dateCreated}`}</div>
+          </Card.Subtitle>
+          <Card.Subtitle>
+            <div>{`Description: ${processedContent}`}</div>
+          </Card.Subtitle>
+          <Card.Subtitle>Status:</Card.Subtitle>
+          <div>
+            <Form.Check
+              type="checkbox"
+              label="Task Completed"
+              id="completed"
+              name="completed"
+              value={completed}
+              onClick={onCompleteHandler}
+              defaultChecked={false}
+            />
+          </div>
+          <div>
+            {completed && (
+              <div>
+                <label htmlFor="dateCompleted"> Completed On :</label>
+                <input
+                  type="text"
+                  name="dateCompleted"
+                  id="dateCompleted"
+                  value={dateCompleted}
+                  disabled={true}
+                />
+              </div>
+            )}
+          </div>
+          <br />
+          <Button variant="outline-danger" onClick={onDeleteHandler}>
+            Delete Todo
+          </Button>
+          &nbsp; &nbsp;
+          {short && <Link href={`/todo/${id}`}>View full todo</Link>}
+          <br />
+        </Card.Body>
+      </Card>
 
-          onClick={onDeleteHandler}
-        >
-          Delete Todo
-        </Button>
-        &nbsp; &nbsp;
-        {short && <Link href={`/todo/${id}`}>View full todo</Link>}
-        <br />
-      </Card.Body>
-    </Card>
-    // </div>
-    // <div>
-    //   <hr />
-    //   <Link href={`/todo/${id}`}>{title}</Link>
-
-    //   <div>{`Description: ${processedContent}`}</div>
-    //   <div>{`Date Created: ${dateCreated}`}</div>
-
-    //   <div>
-    //     {completed && <label> Status :</label>}
-    //     <label htmlFor="completed"> Task Completed</label>
-
-    //     <input
-    //       type="checkbox"
-    //       id="completed"
-    //       name="completed"
-    //       value={completed}
-    //       onClick={onCompleteHandler}
-    //       defaultChecked={false}
-    //     />
-    //   </div>
-
-    //   <div>
-    //     {completed && (
-    //       <div>
-    //         <label htmlFor="dateCompleted"> Completed On :</label>
-    //         <input
-    //           type="text"
-    //           name="dateCompleted"
-    //           id="dateCompleted"
-    //           value={dateCompleted}
-    //           disabled={true}
-    //         />
-    //       </div>
-    //     )}
-    //   </div>
-    //   <div>
-    //     {" "}
-    //     <button type="button" onClick={onDeleteHandler}>
-    //       Delete
-    //     </button>
-    //     <br />
-    //     {short && <Link href={`/todo/${id}`}>View full post</Link>}
-    //   </div>
-    // </div>
+      <Modal show={showDeleteModal} onHide={handleClose}>
+        <Form onSubmit={modalDeleteHandler}>
+          <Modal.Header closeButton>
+            <Modal.Title>Login</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form.Label htmlFor="delete-user">
+              Are you sure you want to delete:
+            </Form.Label>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="primary" type="submit">
+              Yes
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    </div>
   );
 }

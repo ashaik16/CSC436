@@ -6,8 +6,6 @@ export default function appReducer(state, action) {
         return action.username;
       case "LOGOUT":
         return "";
-      case "FETCH_USERS":
-        return action.userList;
       default:
         return state;
     }
@@ -45,9 +43,19 @@ export default function appReducer(state, action) {
         return state;
     }
   }
+  function userListReducer(state, action) {
+    switch (action.type) {
+      case "FETCH_USERS": {
+        console.log(action.userList);
+        return action.userList;
+      }
+      default:
+        return state;
+    }
+  }
   return {
+    userList: userListReducer(state.userList, action),
     user: userReducer(state.user, action),
     todoList: todoReducer(state.todoList, action),
-    userList: userReducer(state.userList, action),
   };
 }

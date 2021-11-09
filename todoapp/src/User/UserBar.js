@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import { Link } from "react-navi";
+import { Link, useNavigation } from "react-navi";
 import { StateContext } from "../Contexts";
 import HomePage from "../pages/HomePage";
 import Login from "./Login";
 import Logout from "./Logout";
 import Register from "./Register";
 export default function UserBar() {
+  const navigation = useNavigation();
   const { state } = useContext(StateContext);
   const { user } = state;
   const [showLogin, setShowLogin] = useState(false);
@@ -15,13 +16,12 @@ export default function UserBar() {
     return (
       <Container>
         <Logout />
-
         <hr />
-
         {user && <Link href="/todo/create">Create New Post</Link>}
+        &nbsp;&nbsp;
+        {user && <Link href="/users">List All Users</Link>}
         <hr />
         {/* {user && <CreateTodo />} */}
-
         <HomePage />
       </Container>
     );

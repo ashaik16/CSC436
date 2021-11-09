@@ -9,8 +9,13 @@ import UserPage from "./pages/UserPage";
 import appReducer from "./Reducer";
 import CreateTodo from "./Todo/CreateTodo";
 import UserBar from "./User/UserBar";
-
+import DeleteTodo from "./pages/DeleteTodo";
 function App() {
+  const [state, dispatch] = useReducer(appReducer, {
+    user: "",
+    todoList: [],
+    userList: [],
+  });
   const routes = mount({
     "/": route({ view: <UserBar /> }),
     "/users": route({ view: <UserListPage /> }),
@@ -18,14 +23,12 @@ function App() {
     "/todo/:id": route((req) => {
       return { view: <TodoPage id={req.params.id} /> };
     }),
+    "/delete/:title": route((req) => {
+      return { view: <DeleteTodo title={req.params.title} /> };
+    }),
     "/users/:id": route((req) => {
       return { view: <UserPage id={req.params.id} /> };
     }),
-  });
-  const [state, dispatch] = useReducer(appReducer, {
-    user: "",
-    todoList: [],
-    userList: [],
   });
 
   return (

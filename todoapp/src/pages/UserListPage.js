@@ -3,6 +3,7 @@ import { StateContext } from "../Contexts";
 import { useResource } from "react-request-hook";
 import UserList from "../User/UserList";
 import UserBar from "../User/UserBar";
+import { useNavigation } from "react-navi";
 export default function UserListPage() {
   const { dispatch } = useContext(StateContext);
 
@@ -18,6 +19,7 @@ export default function UserListPage() {
       dispatch({ type: "FETCH_USERS", userList: userList.data });
     }
   }, [userList]);
+
   const { isLoading } = userList;
   return (
     <>

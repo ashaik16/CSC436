@@ -28,10 +28,10 @@
       "dateCompleted": ""
     },
     {
-      "title": "check",
-      "author": "anam",
-      "description": "check",
-      "dateCreated": "11/7/2021",
+      "title": "acheck",
+      "author": "a",
+      "description": "acheck",
+      "dateCreated": "11/8/2021",
       "completed": false,
       "dateCompleted": "",
       "id": 4
@@ -44,34 +44,24 @@
       "password": "badpassword"
     },
     {
-      "username": "a",
+      "username": "anam",
       "password": "a",
       "id": 2
     },
     {
-      "username": "s",
-      "password": "s",
+      "username": "a",
+      "password": "a",
       "id": 3
     },
     {
-      "username": "as",
-      "password": "ss",
+      "username": "zeshan",
+      "password": "z",
       "id": 4
     },
     {
-      "username": "anam",
-      "password": "anam",
+      "username": "xyz",
+      "password": "xyz",
       "id": 5
-    },
-    {
-      "username": "anam",
-      "password": "a",
-      "id": 6
-    },
-    {
-      "username": "anam",
-      "password": "anam",
-      "id": 7
     }
   ]
 }
