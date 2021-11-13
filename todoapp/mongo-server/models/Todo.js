@@ -4,8 +4,12 @@ const Schema = mongoose.Schema;
 
 const TodoSchema = new Schema({
   title: { type: String, required: true },
-  content: { type: String, required: true },
-  author: { type: Schema.Types.ObjectId, ref: "User" },
+  author: { type: String, required: true },
+  description: { type: String, required: true },
+  dateCreated: { type: String, required: true },
+  completed: { type: String, required: true },
+  dateCompleted: { type: String, required: true },
+  authorId: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 //Export model

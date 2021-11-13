@@ -19,4 +19,5 @@ app.use(express.urlencoded({ extended: false }));
 //app.use('/', indexRouter);
 //app.use('/users', usersRouter);
 app.use("/auth", authRouter);
+app.use("/todo", todoRouter);
 module.exports = app;
