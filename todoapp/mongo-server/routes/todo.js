@@ -76,4 +76,16 @@ router.post("/", function (req, res, next) {
     });
 });
 
+router.patch("/:id", function (req, res) {
+  var updateObject = req.body;
+  var id = req.params.id;
+  Todo.findByIdAndUpdate(id, updateObject)
+    .then((updateObj) => {
+      updateObj.save();
+      return res.status(201).json(updateObj);
+    })
+    .catch((error) => {
+      return res.status(500).json({ error: error.message });
+    });
+});
 module.exports = router;
