@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 const saltRounds = 10;
 const privateKey = `
 -----BEGIN RSA PRIVATE KEY-----
@@ -56,10 +57,26 @@ router.post("/login", async function (req, res, next) {
 router.post("/register", function (req, res, next) {
   if (req.body.username && req.body.password && req.body.passwordConfirmation) {
     if (req.body.password === req.body.passwordConfirmation) {
-      res.json({
-        password: req.body.password,
-        hashedPassword: req.hashedPassword,
+      const user = new User({
+        username: req.body.username,
+        password: req.hashedPassword,
       });
+      user
+        .save()
+        .then((savedUser) => {
+          return res.status(201).json({
+            id: savedUser._id,
+            username: savedUser.username,
+          });
+        })
+        .catch((error) => {
+          return res.status(500).json({ error: error.message });
+        });
+
+      // res.json({
+      //   password: req.body.password,
+      //   hashedPassword: req.hashedPassword,
+      // });
     } else
       res
         .status(400)
