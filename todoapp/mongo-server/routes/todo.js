@@ -36,8 +36,13 @@ router.use(function (req, res, next) {
   next();
 });
 
-router.get("/", function (req, res, next) {
+router.get("/", async function (req, res, next) {
   // res.render("index", { title: "Express" });
+  const todoList = await Todo.find()
+    .where("authorId")
+    .equals(req.payload.id)
+    .exec();
+  return res.status(200).json({ todoList: todoList });
 });
 
 router.post("/", function (req, res, next) {
