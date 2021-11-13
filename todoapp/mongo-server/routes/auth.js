@@ -6,19 +6,19 @@ const User = require("../models/User");
 const saltRounds = 10;
 const privateKey = `
 -----BEGIN RSA PRIVATE KEY-----
-MIICXgIBAAKBgQCCHv5sfIOEYf+4TNLfoUIre5GcpJGxb2t1c/TWOvFjE2x1VMwJ
-bGzurdeeUss+PcItjuTNixOGNx7YO+HLZkLoW6WXlv9LWtHnbZvpzTZCTrfDxA4B
-n/w3NEFp3tiu+CV8QRphvU1kYTbUo4+3Ko9eVNtt/BfLxsSpqQUaraunxQIDAQAB
-AoGBAIBZnDNcusnpdLnRpawLP97uW5p8xm2UbxYDFD4BFDvbW/98bmrZNbZVajt0
-haBWgOQ5cD3DcrXQRy+aGcZtj45ytqn2XgXpEiklq24cPflNB+1/BDxqylNT/CJf
-wpi0vAKRqZRumF66mpeXy++3aaoLrIEcwyXRLU7HOCHf2wC9AkEA+1srhI5TXtCP
-3TuN/vTksESYS4mJzKwi4sfbjEqq4ZyKwIsgHWhiJIVqxVl7OgSBgOkb/Fxcgu58
-gn8rZyRw+wJBAISGbDnye3mPQkh6iylnheGTkrjv8nglB10TeKlE2fmhoR4cdfz4
-JokN3XIWYZAj9TZ6teo4TUg8XNoEwJD4bj8CQQCcw+3OTJ3+ooE3b69N9hqzPPTn
-F67T8gAIBLIPO3p8H5ACKkMrVDDxqiw/TWGne6vxZHHJ4SjpmCgbk4jUWUwFAkAk
-UEk7n6wh5RV+ksWrNMjExRFBR86jCVJ5OKqph0pLUvS5MYdLKBw3FeuGJYfaXWAF
-654JbiAPGStAOmkh0FE1AkEA8xkuzjVyHhsMG8kni0+h4iVyGc5GKZfvHQ23wzoN
-I6lRcdmQQMSrPMfNne1bxtOSFdbZhNosi5uoHZcGKYeBWQ==
+MIICWgIBAAKBgFJgUdq1oq8AQ99hF3VK8yGKOaohqeMEbfd8yQb+ck5Pnuo9vGui
+xX/b7yC4S/1Ibo3WS07Z9mw0wz2Yf5M61LrY4AmKGg+3YZiNEsull18zWdGO5LeA
+SLw7rPRmx+jydmkUgC2quzveBb/cjLOSANDlfxTF6wHRKlcneousUnPdAgMBAAEC
+gYAl8xnCmEsKNCUQk7oq3wyDNxq5tih93VyL14EFJ9OhIC0l3KshKyuxa7EOcdkQ
+Jn5H+aFYAjH0R5pqlgav3TqDEwtR3h3EKI918/CaYCrF024O7Zu2hETOlRyUrrrh
+XZItqkvu8VpcFpzGhWFSL7mBWuZaJa13PUWRRusteieSAQJBAKNf+HUGt4cEWKCn
+vpjU2fSkV/Re6KXLunD7FBK+4W4Vxrq3Tz9GaVoMjZbpQGpU64hkuz7nPZm4d0v3
+c+xZ0DkCQQCBFE6YIZHtuNYTbyKdMxJaFI5lqKOTkztdhoQdoyTif73rrcsK62pR
+Bhved24gYdBMWcxVbrJaeTZxC4jZbvjFAkAX8u6SAR0QLsPrMQvQjYsxwJGgIfWK
+sFWxUCz+HnsfTxPltQ9p4CF7cNGkqKanr7EjOlj0fKNcEF10hl646+WJAkANBtWf
+uNOXYC4KrA6cOslBWg286LYJcLRvDeJLc2mHikjKfjGdmoCSSMGLRBZTIkv5SJ68
+iH1rcAw0gGuBNhfZAkAg19YesD1aC1IES+PPLkKJwNdjZTbxVVZAf7VUOCapovMJ
+oyQpTHFizOs0m80LRHwwmxitW+IhiHJjk4wOKZjY
 -----END RSA PRIVATE KEY-----
 `;
 router.use(function (req, res, next) {
@@ -35,23 +35,33 @@ router.use(function (req, res, next) {
 // });
 router.post("/login", async function (req, res, next) {
   if (req.body.username && req.body.password) {
+    const user = await User.findOne()
+      .where("username")
+      .equals(req.body.username)
+      .exec();
+
     // res.send("Valid Request");
-    return await bcrypt
-      .compare(
-        req.body.password,
-        "$2b$10$BuqyTDS8zV5Skgt/r6XTpeAnXhkkqpk.0u6T2728ffh6EZdPMrslS"
-      )
-      .then((result) => {
-        if (result === true) {
-          const token = jwt.sign({ id: "pretend_user_id" }, privateKey, {
-            algorithm: "RS256",
-          });
-          return res.status(200).json({ access_token: token });
-        }
-      })
-      .catch((error) => {
-        return res.status(500).json({ error: error.message });
-      });
+    if (user) {
+      return await bcrypt
+        .compare(
+          req.body.password,
+          user.password
+          // "$2b$10$BuqyTDS8zV5Skgt/r6XTpeAnXhkkqpk.0u6T2728ffh6EZdPMrslS"
+        )
+        .then((result) => {
+          if (result === true) {
+            const token = jwt.sign({ id: user._id }, privateKey, {
+              algorithm: "RS256",
+            });
+            return res.status(200).json({ access_token: token });
+          } else {
+            return res.status(401).json({ error: "Invalid credentials." });
+          }
+        })
+        .catch((error) => {
+          return res.status(500).json({ error: error.message });
+        });
+    }
   } else res.status(400).json({ error: "Username or Password missing" });
 });
 router.post("/register", function (req, res, next) {
