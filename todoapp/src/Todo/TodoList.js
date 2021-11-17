@@ -24,7 +24,7 @@ export default function TodoList(props) {
                 authorId={todoItem.authorId}
                 description={todoItem.description}
                 dateCreated={todoItem.dateCreated}
-                id={todoItem.id}
+                id={todoItem._id}
                 completed={todoItem.completed}
                 dateCompleted={todoItem.dateCompleted}
                 {...todoItem}
