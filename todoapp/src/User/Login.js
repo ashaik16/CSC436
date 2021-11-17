@@ -14,19 +14,40 @@ export default function Login({ show, handleClose, setShowLogin }) {
     setPassword(event.target.value);
   }
   const { dispatch } = useContext(StateContext);
+  // const [user, login] = useResource((username, password) => ({
+  //   url: `/login/${encodeURI(username)}/${encodeURI(password)}`,
+  //   method: "get",
+  // }));
   const [user, login] = useResource((username, password) => ({
-    url: `/login/${encodeURI(username)}/${encodeURI(password)}`,
-    method: "get",
+    url: "auth/login",
+    method: "post",
+    data: { username, password },
   }));
 
+  // useEffect(() => {
+  //   if (user && user.data) {
+  //     if (user.data.length > 0) {
+  //       setLoginFailed(false);
+  //       dispatch({ type: "LOGIN", username: user.data[0].username });
+  //     } else {
+  //       setLoginFailed(true);
+  //       setShowLogin(true);
+  //     }
+  //   }
+  // }, [user]);
   useEffect(() => {
-    if (user && user.data) {
-      if (user.data.length > 0) {
-        setLoginFailed(false);
-        dispatch({ type: "LOGIN", username: user.data[0].username });
-      } else {
+    if (user && user.isLoading === false && (user.data || user.error)) {
+      if (user.error) {
         setLoginFailed(true);
-        setShowLogin(true);
+        alert("failed");
+      } else {
+        setLoginFailed(false);
+        console.log(user.data);
+        dispatch({
+          type: "LOGIN",
+          username,
+          access_token: user.data.access_token,
+        });
       }
     }
   }, [user]);

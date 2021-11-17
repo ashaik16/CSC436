@@ -12,15 +12,16 @@ import UserBar from "./User/UserBar";
 import DeleteTodo from "./pages/DeleteTodo";
 function App() {
   const [state, dispatch] = useReducer(appReducer, {
-    user: "",
+    // user: "",
+    user: {},
     todoList: [],
     userList: [],
   });
   const routes = mount({
     "/": route({ view: <UserBar /> }),
     "/users": route({ view: <UserListPage /> }),
-    "/todo/create": route({ view: <CreateTodo /> }),
-    "/todo/:id": route((req) => {
+    "/todoList/create": route({ view: <CreateTodo /> }),
+    "/todoList/:id": route((req) => {
       return { view: <TodoPage id={req.params.id} /> };
     }),
     "/delete/:title": route((req) => {

@@ -12,14 +12,15 @@ export default function UserBar() {
   const { user } = state;
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  if (user) {
+
+  if (user.username) {
     return (
       <Container>
         <Logout />
         <hr />
-        {user && <Link href="/todo/create">Create New Post</Link>}
+        {user.username && <Link href="/todoList/create">Create New Post</Link>}
         &nbsp;&nbsp;
-        {user && <Link href="/users">List All Users</Link>}
+        {user.username && <Link href="/users">List All Users</Link>}
         <hr />
         {/* {user && <CreateTodo />} */}
         <HomePage />
@@ -28,7 +29,7 @@ export default function UserBar() {
   } else {
     return (
       <Container>
-        {!user && (
+        {!user.username && (
           // <div>
           //   <h2>
           //     <u>Login</u>

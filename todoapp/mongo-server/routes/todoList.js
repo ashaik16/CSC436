@@ -35,7 +35,14 @@ router.use(function (req, res, next) {
   }
   next();
 });
+router.get("/:todoId", async function (req, res, next) {
+  const todo = await Todo.findOne()
+    .where("_id")
+    .equals(req.params.todoId)
+    .exec();
 
+  return res.status(200).json(todo);
+});
 router.get("/", async function (req, res, next) {
   // res.render("index", { title: "Express" });
   const todoList = await Todo.find()

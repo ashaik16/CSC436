@@ -10,7 +10,7 @@ export default function CreateTodo() {
   const { user } = state;
   const [createTodoObject, setCreateTodoObject] = useState({
     title: "",
-    author: user,
+    author: user.username,
     description: "",
     dateCreated: new Date().toLocaleDateString(),
     completed: false,
@@ -20,9 +20,11 @@ export default function CreateTodo() {
   const [todo, createTodos] = useResource(({ createTodoObject }) => ({
     url: "/todoList",
     method: "post",
+    headers: { Authorization: `${state.user.access_token}` },
     data: {
       title: createTodoObject.title,
       author: createTodoObject.author,
+      authorId: createTodoObject.authorId,
       description: createTodoObject.description,
       dateCreated: createTodoObject.dateCreated,
       completed: createTodoObject.completed,
@@ -35,9 +37,9 @@ export default function CreateTodo() {
     createTodos({ createTodoObject });
     setCreateTodoObject({
       title: "",
-      author: user,
+      author: user.username,
       description: "",
-      dateCreated: "",
+      dateCreated: new Date().toLocaleDateString(),
       completed: false,
       dateCompleted: "",
     });
@@ -49,12 +51,13 @@ export default function CreateTodo() {
         id: todo.data.id,
         title: todo.data.title,
         author: todo.data.author,
+        authorId: todo.data.authorId,
         description: todo.data.description,
         dateCreated: todo.data.dateCreated,
         completed: todo.data.completed,
         dateCompleted: todo.data.dateCompleted,
       });
-      navigation.navigate(`/todo/${todo.data.id}`);
+      navigation.navigate(`/todoList/${todo.data.id}`);
     }
   }, [todo]);
 

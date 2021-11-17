@@ -15,16 +15,18 @@ export default function TodoList(props) {
       </h2>
       <ul>
         {todoList &&
-          todoList.map((todoItem, i) => (
-            <ol key={+i}>
+          props.todoList.todoList.map((todoItem, i) => (
+            <ol key={"Todo" + i}>
               <Todo
                 title={todoItem.title}
                 author={todoItem.author}
+                authorId={todoItem.authorId}
                 description={todoItem.description}
                 dateCreated={todoItem.dateCreated}
                 id={todoItem.id}
                 completed={todoItem.completed}
                 dateCompleted={todoItem.dateCompleted}
+                {...todoItem}
                 short={true}
               />
             </ol>

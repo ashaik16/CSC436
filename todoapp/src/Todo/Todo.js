@@ -10,6 +10,7 @@ export default function Todo(props) {
   const navigation = useNavigation();
   const title = props.title;
   const author = props.author;
+  const authorId = props.authorId;
   const description = props.description;
   const dateCreated = props.dateCreated;
   const completed = props.completed;
@@ -90,11 +91,14 @@ export default function Todo(props) {
         <Card.Body>
           <Card.Header as="h5" style={{ backgroundColor: "#85C1E9" }}>
             {" "}
-            <Link href={`/todo/${id}`}>{title}</Link>
+            <Link href={`/todoList/${id}`}>{title}</Link>
           </Card.Header>
           <Card.Title dark></Card.Title>
           <Card.Subtitle>
             <div>{`Author: ${author}`}</div>
+          </Card.Subtitle>
+          <Card.Subtitle>
+            <div>{`Author-Id: ${authorId}`}</div>
           </Card.Subtitle>
           <Card.Subtitle>
             <div>{`Date Created: ${dateCreated}`}</div>
@@ -133,7 +137,7 @@ export default function Todo(props) {
             Delete Todo
           </Button>
           &nbsp; &nbsp;
-          {short && <Link href={`/todo/${id}`}>View full todo</Link>}
+          {short && <Link href={`/todoList/${id}`}>View full todo</Link>}
           <br />
         </Card.Body>
       </Card>

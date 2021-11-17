@@ -8,7 +8,7 @@ const TodoSchema = new Schema({
   description: { type: String, required: true },
   dateCreated: { type: String, required: true },
   completed: { type: String, required: true },
-  dateCompleted: { type: String, required: true },
+  dateCompleted: { type: String },
   authorId: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
