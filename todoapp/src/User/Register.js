@@ -22,18 +22,35 @@ export default function Register({ show, handleClose }) {
       event.target.setCustomValidity("");
     }
   }
-
+  const [status, setStatus] = useState("");
   const [user, register] = useResource(({ userName, password }) => ({
-    url: "/users",
+    // url: "/users",
+    url: "auth/register",
     method: "post",
-    data: { username: userName, password: password },
+    data: {
+      username: userName,
+      password: password,
+      passwordConfirmation: password,
+    },
   }));
   useEffect(() => {
     if (user && user.data) {
       dispatch({ type: "REGISTER", username: user.data.username });
     }
   }, [user]);
-
+  useEffect(() => {
+    if (user && user.isLoading === false && (user.data || user.error)) {
+      if (user.error) {
+        console.log(user);
+        setStatus("Registration failed, please try again later.");
+        alert("fail");
+      } else {
+        console.log(user);
+        setStatus("Registration successful. You may now login.");
+        alert("success");
+      } //dispatch({ type: 'REGISTER', username: user.data.username })
+    }
+  }, [user]);
   function registerHandler(event) {
     event.preventDefault();
     register({ userName, password });
