@@ -8,6 +8,7 @@ require("./models/setupMongo")();
 
 var todoRouter = require("./routes/todoList");
 var authRouter = require("./routes/auth");
+var userRouter = require("./routes/users");
 var app = express();
 
 app.use(logger("dev"));
@@ -20,4 +21,5 @@ app.use(express.urlencoded({ extended: false }));
 //app.use('/users', usersRouter);
 app.use("/auth", authRouter);
 app.use("/todoList", todoRouter);
+app.use("/users", userRouter);
 module.exports = app;

@@ -8,6 +8,7 @@ export default function TodoList(props) {
   // const { state } = useContext(StateContext);
   // const { todoList } = state;
   const todoList = props.todoList;
+
   return (
     <div>
       <h2>

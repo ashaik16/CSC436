@@ -11,7 +11,7 @@ export default function User(props) {
   const short = props.short;
   const { dispatch, state } = useContext(StateContext);
   const selectedUserTodoList = [];
-  let { todoList } = state;
+  const todoList = props;
   //   const selectedUserTodoList = todoList.filter((todos) => {
   //     todos.author === username;
   //     console.log(todos);
@@ -27,25 +27,30 @@ export default function User(props) {
     <div>
       {/* <div style={{ marginLeft: "-54px" }}> */}
       <Card style={{ backgroundColor: "#D6EAF8" }}>
+        {short && (
+          <Card.Body>
+            <Card.Header as="h5" style={{ backgroundColor: "#85C1E9" }}>
+              {" "}
+              <Link href={`/users/${id}`}>{username}</Link>
+            </Card.Header>
+            <Card.Title dark></Card.Title>
+            <Card.Subtitle>
+              <div>{`User Id: ${id}`}</div>
+            </Card.Subtitle>
+            &nbsp; &nbsp;
+            {short && <Link href={`/users/${id}`}>View User Profile</Link>}
+            <br />
+          </Card.Body>
+        )}
         <Card.Body>
-          <Card.Header as="h5" style={{ backgroundColor: "#85C1E9" }}>
-            {" "}
-            <Link href={`/users/${id}`}>{username}</Link>
-          </Card.Header>
-          <Card.Title dark></Card.Title>
-          <Card.Subtitle>
-            <div>{`User Id: ${id}`}</div>
-          </Card.Subtitle>
-          &nbsp; &nbsp;
-          {short && <Link href={`/users/${id}`}>View User Profile</Link>}
-          <br />
+          {!short && (
+            <TodoList
+              // todoList={todoList.filter((todos) => todos.author === username)}
+              todoList={todoList}
+            />
+          )}
         </Card.Body>
       </Card>
-      {!short && (
-        <TodoList
-          todoList={todoList.filter((todos) => todos.author === username)}
-        />
-      )}
     </div>
   );
 }

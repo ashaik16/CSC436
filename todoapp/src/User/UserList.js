@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { StateContext } from "../Contexts";
 import User from "./User";
-export default function UserList() {
+export default function UserList(props) {
   const { state } = useContext(StateContext);
-  const { userList } = state;
-
+  //const { userList } = state;
+  const userList = props.userList.data.userList;
   return (
     <div>
       <h2>
@@ -13,7 +13,7 @@ export default function UserList() {
       <ul>
         {userList.map((user, i) => (
           <ol key={+i}>
-            <User id={user.id} username={user.username} short={true} />
+            <User id={user._id} username={user.username} short={true} />
           </ol>
         ))}
       </ul>

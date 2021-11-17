@@ -23,7 +23,8 @@ export default function UserListPage() {
   const { isLoading } = userList;
   return (
     <>
-      {isLoading && "User's loading..."} <UserList />
+      {isLoading && "User's loading..."}
+      {!isLoading && userList.data && <UserList userList={userList} />}
     </>
   );
 }
