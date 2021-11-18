@@ -95,4 +95,11 @@ router.patch("/:id", function (req, res) {
       return res.status(500).json({ error: error.message });
     });
 });
+router.delete("/:id", (req, res) => {
+  var deleteObject = req.body;
+  Todo.remove({ _id: req.params.id }, (error) => {
+    if (error) return res.status(500).json({ error: error.message });
+    else return res.status(200).json(req.params.id);
+  });
+});
 module.exports = router;

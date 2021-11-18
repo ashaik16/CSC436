@@ -16,7 +16,7 @@ export default function Todo(props) {
   const completed = props.completed;
   const dateCompleted = props.dateCompleted;
 
-  const id = props.id;
+  const id = props._id;
   const short = props.short;
   const { state, dispatch } = useContext(StateContext);
   const { user } = state;
@@ -41,7 +41,7 @@ export default function Todo(props) {
   function onCompleteHandler() {
     const date = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
-    const updatedComplete = !completed;
+    const updatedComplete = !!completed;
     var updateDateCompleted = date + " " + time;
     if (!updatedComplete) updateDateCompleted = "";
 
@@ -63,6 +63,7 @@ export default function Todo(props) {
   const [deleteData, deleteTodoFunction] = useResource((id) => ({
     url: "/todoList/" + id,
     method: "delete",
+    headers: { Authorization: `${state.user.access_token}` },
   }));
 
   function onDeleteHandler() {
@@ -81,8 +82,9 @@ export default function Todo(props) {
   function modalDeleteHandler(event) {
     event.preventDefault();
     deleteTodoFunction(id);
-    navigation.navigate("/delete/" + title);
+
     handleClose();
+    navigation.navigate("/delete/" + title);
   }
 
   return (
