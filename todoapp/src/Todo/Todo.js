@@ -18,8 +18,8 @@ export default function Todo(props) {
 
   const id = props.id;
   const short = props.short;
-  const { dispatch } = useContext(StateContext);
-
+  const { state, dispatch } = useContext(StateContext);
+  const { user } = state;
   let processedContent = description;
   if (short) {
     if (description.length > 30) {
@@ -30,6 +30,7 @@ export default function Todo(props) {
     (id, updatedComplete, updateDateCompleted) => ({
       url: "/todoList/" + id,
       method: "patch",
+      headers: { Authorization: `${state.user.access_token}` },
       data: {
         completed: updatedComplete,
         dateCompleted: updateDateCompleted,
@@ -107,38 +108,42 @@ export default function Todo(props) {
             <div>{`Description: ${processedContent}`}</div>
           </Card.Subtitle>
           <Card.Subtitle>Status:</Card.Subtitle>
-          <div>
-            <Form.Check
-              type="checkbox"
-              label="Task Completed"
-              id="completed"
-              name="completed"
-              value={completed}
-              onClick={onCompleteHandler}
-              defaultChecked={false}
-            />
-          </div>
-          <div>
-            {completed && (
+          {user.username == author && (
+            <div>
               <div>
-                <label htmlFor="dateCompleted"> Completed On :</label>
-                <input
-                  type="text"
-                  name="dateCompleted"
-                  id="dateCompleted"
-                  value={dateCompleted}
-                  disabled={true}
+                <Form.Check
+                  type="checkbox"
+                  label="Task Completed"
+                  id="completed"
+                  name="completed"
+                  value={completed}
+                  onClick={onCompleteHandler}
+                  defaultChecked={false}
                 />
               </div>
-            )}
-          </div>
-          <br />
-          <Button variant="outline-danger" onClick={onDeleteHandler}>
-            Delete Todo
-          </Button>
-          &nbsp; &nbsp;
-          {short && <Link href={`/todoList/${id}`}>View full todo</Link>}
-          <br />
+              <div>
+                {completed && (
+                  <div>
+                    <label htmlFor="dateCompleted"> Completed On :</label>
+                    <input
+                      type="text"
+                      name="dateCompleted"
+                      id="dateCompleted"
+                      value={dateCompleted}
+                      disabled={true}
+                    />
+                  </div>
+                )}
+              </div>
+              <br />
+              <Button variant="outline-danger" onClick={onDeleteHandler}>
+                Delete Todo
+              </Button>
+              &nbsp; &nbsp;
+              {short && <Link href={`/todoList/${id}`}>View full todo</Link>}
+              <br />
+            </div>
+          )}
         </Card.Body>
       </Card>
 
