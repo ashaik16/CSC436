@@ -10,6 +10,7 @@ import appReducer from "./Reducer";
 import CreateTodo from "./Todo/CreateTodo";
 import UserBar from "./User/UserBar";
 import DeleteTodo from "./pages/DeleteTodo";
+import TodoList from "./Todo/TodoList";
 function App() {
   const [state, dispatch] = useReducer(appReducer, {
     // user: "",
@@ -21,6 +22,7 @@ function App() {
     "/": route({ view: <UserBar /> }),
     "/users": route({ view: <UserListPage /> }),
     "/todoList/create": route({ view: <CreateTodo /> }),
+    "/todoList": route({ view: <TodoList todoList={state.title} /> }),
     "/todoList/:id": route((req) => {
       return { view: <TodoPage id={req.params.id} /> };
     }),

@@ -4,6 +4,8 @@ import { useResource } from "react-request-hook";
 import UserList from "../User/UserList";
 import UserBar from "../User/UserBar";
 import { useNavigation } from "react-navi";
+import { Link } from "react-navi";
+
 export default function UserListPage() {
   const { dispatch } = useContext(StateContext);
 
@@ -25,6 +27,7 @@ export default function UserListPage() {
     <>
       {isLoading && "User's loading..."}
       {!isLoading && userList.data && <UserList userList={userList} />}
+      <Link href="/">Go back</Link>
     </>
   );
 }
