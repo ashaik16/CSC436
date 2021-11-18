@@ -4,6 +4,7 @@ import { useResource } from "react-request-hook";
 import { useEffect } from "react";
 import { useNavigation } from "react-navi";
 import { Container } from "react-bootstrap";
+import { Link } from "react-navi";
 export default function CreateTodo() {
   const navigation = useNavigation();
   const { dispatch, state } = useContext(StateContext);
@@ -108,6 +109,8 @@ export default function CreateTodo() {
         <div>
           <input type="submit" value="Create" />
         </div>
+        <br />
+        <Link href="/">Go back</Link>
       </form>
     </div>
   );

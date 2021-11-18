@@ -5,7 +5,7 @@ import { StateContext } from "../Contexts";
 export default function Register({ show, handleClose }) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const { dispatch } = useContext(StateContext);
+  const { state, dispatch } = useContext(StateContext);
   function handleUserName(event) {
     setUserName(event.target.value);
   }
@@ -33,11 +33,13 @@ export default function Register({ show, handleClose }) {
       passwordConfirmation: password,
     },
   }));
+  // useEffect(() => {}, [state.user.access_token]);
   useEffect(() => {
     if (user && user.data) {
       dispatch({ type: "REGISTER", username: user.data.username });
     }
   }, [user]);
+
   useEffect(() => {
     if (user && user.isLoading === false && (user.data || user.error)) {
       if (user.error) {
