@@ -7,6 +7,7 @@ export default function Login({ show, handleClose, setShowLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginFailed, setLoginFailed] = useState(false);
+  let errorMessage = "";
   function handleUserName(evt) {
     setUsername(evt.target.value);
   }
@@ -38,6 +39,7 @@ export default function Login({ show, handleClose, setShowLogin }) {
   useEffect(() => {
     if (user && user.isLoading === false && (user.data || user.error)) {
       if (user.error) {
+        errorMessage = user.error.data.error;
         setLoginFailed(true);
         setShowLogin(true);
         alert("failed");
@@ -56,7 +58,6 @@ export default function Login({ show, handleClose, setShowLogin }) {
   function loginHandler(event) {
     event.preventDefault();
     login(username, password);
-    handleClose();
   }
 
   return (
@@ -95,7 +96,7 @@ export default function Login({ show, handleClose, setShowLogin }) {
           />
           {loginFailed && (
             <Form.Text style={{ color: "red" }}>
-              Invalid username or password
+              {user.error && user.error.data.error}
             </Form.Text>
           )}
         </Modal.Body>

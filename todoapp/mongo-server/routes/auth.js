@@ -61,6 +61,8 @@ router.post("/login", async function (req, res, next) {
         .catch((error) => {
           return res.status(500).json({ error: error.message });
         });
+    } else {
+      return res.status(401).json({ error: "User is not registered" });
     }
   } else res.status(400).json({ error: "Username or Password missing" });
 });

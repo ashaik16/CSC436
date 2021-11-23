@@ -61,6 +61,7 @@ export default function UserBar() {
             <Register
               show={showRegister}
               handleClose={() => setShowRegister(false)}
+              setShowRegister={setShowRegister}
             />
           </div>
         )}
