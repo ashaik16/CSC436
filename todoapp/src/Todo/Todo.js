@@ -57,7 +57,13 @@ export default function Todo(props) {
         completed: toggleData.data.completed,
       });
       console.log("Inside toggle todo" + completed + title);
-      navigation.navigate("/delete/" + title);
+      if (!completed) {
+        const message = "task completed suceessfully.";
+        navigation.navigate("/success/" + title + "/" + message + "/");
+      } else {
+        const message = "task updated to incomplete status.";
+        navigation.navigate("/success/" + title + "/" + message + "/");
+      }
     }
   }, [toggleData]);
 
@@ -85,7 +91,9 @@ export default function Todo(props) {
     deleteTodoFunction(id);
 
     handleClose();
-    navigation.navigate("/delete/" + title);
+    // navigation.navigate("/delete/" + title);
+    const message = "task deleted sucesssfully.";
+    navigation.navigate("/success/" + title + "/" + message + "/");
   }
 
   return (
@@ -157,7 +165,7 @@ export default function Todo(props) {
           </Modal.Header>
           <Modal.Body>
             <Form.Label htmlFor="delete-user">
-              Are you sure you want to delete:
+              Are you sure you want to delete?
             </Form.Label>
           </Modal.Body>
           <Modal.Footer>

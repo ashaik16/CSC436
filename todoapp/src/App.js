@@ -9,7 +9,7 @@ import UserPage from "./pages/UserPage";
 import appReducer from "./Reducer";
 import CreateTodo from "./Todo/CreateTodo";
 import UserBar from "./User/UserBar";
-import DeleteTodo from "./pages/DeleteTodo";
+import SuccessMessagePage from "./pages/SuccessMessagePage.js";
 import TodoList from "./Todo/TodoList";
 function App() {
   const [state, dispatch] = useReducer(appReducer, {
@@ -26,8 +26,15 @@ function App() {
     "/todoList/:id": route((req) => {
       return { view: <TodoPage id={req.params.id} /> };
     }),
-    "/delete/:title": route((req) => {
-      return { view: <DeleteTodo title={req.params.title} /> };
+    "/success/:title/:message": route((req) => {
+      return {
+        view: (
+          <SuccessMessagePage
+            title={req.params.title}
+            message={req.params.message}
+          />
+        ),
+      };
     }),
     "/users/:id": route((req) => {
       return { view: <UserPage id={req.params.id} /> };

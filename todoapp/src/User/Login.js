@@ -39,6 +39,7 @@ export default function Login({ show, handleClose, setShowLogin }) {
     if (user && user.isLoading === false && (user.data || user.error)) {
       if (user.error) {
         setLoginFailed(true);
+        setShowLogin(true);
         alert("failed");
       } else {
         setLoginFailed(false);
