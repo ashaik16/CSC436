@@ -13,7 +13,7 @@ export default function Todo(props) {
   const authorId = props.authorId;
   const description = props.description;
   const dateCreated = props.dateCreated;
-  const completed = props.completed;
+  const completed = props.completed == "true" ? true : false;
   const dateCompleted = props.dateCompleted;
 
   const id = props._id;
@@ -41,10 +41,10 @@ export default function Todo(props) {
   function onCompleteHandler() {
     const date = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
-    const updatedComplete = !!completed;
+    const updatedComplete = !completed;
     var updateDateCompleted = date + " " + time;
     if (!updatedComplete) updateDateCompleted = "";
-
+    console.log("Inside onCompleteHandler" + updatedComplete + title);
     toggleTodoFunction(id, updatedComplete, updateDateCompleted);
   }
 
@@ -56,7 +56,8 @@ export default function Todo(props) {
         dateCompleted: toggleData.data.dateCompleted,
         completed: toggleData.data.completed,
       });
-      navigation.navigate("/");
+      console.log("Inside toggle todo" + completed + title);
+      navigation.navigate("/delete/" + title);
     }
   }, [toggleData]);
 
@@ -118,9 +119,9 @@ export default function Todo(props) {
                   label="Task Completed"
                   id="completed"
                   name="completed"
+                  defaultChecked={completed}
                   value={completed}
                   onClick={onCompleteHandler}
-                  defaultChecked={false}
                 />
               </div>
               <div>

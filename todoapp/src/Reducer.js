@@ -48,6 +48,7 @@ export default function appReducer(state, action) {
         return state.filter((x) => x.id !== action.id);
       }
       case "FETCH_TODOS": {
+        console.log("Inside fetch  todo");
         return action.todoList;
       }
       default:

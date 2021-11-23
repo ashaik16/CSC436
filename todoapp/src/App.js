@@ -22,7 +22,7 @@ function App() {
     "/": route({ view: <UserBar /> }),
     "/users": route({ view: <UserListPage /> }),
     "/todoList/create": route({ view: <CreateTodo /> }),
-    "/todoList": route({ view: <TodoList todoList={state.title} /> }),
+    // "/todoList": route({ view: <TodoList todoList={state.todoList} /> }),
     "/todoList/:id": route((req) => {
       return { view: <TodoPage id={req.params.id} /> };
     }),
