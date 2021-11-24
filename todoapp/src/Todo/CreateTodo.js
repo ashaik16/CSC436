@@ -4,11 +4,14 @@ import { useResource } from "react-request-hook";
 import { useEffect } from "react";
 import { useNavigation } from "react-navi";
 import { Container } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Link } from "react-navi";
 export default function CreateTodo() {
   const navigation = useNavigation();
   const { dispatch, state } = useContext(StateContext);
   const { user } = state;
+  const [createTodoFailed, setCreateTodoFailed] = useState(false);
+  const [status, setStatus] = useState("");
   const [createTodoObject, setCreateTodoObject] = useState({
     title: "",
     author: user.username,
@@ -22,6 +25,7 @@ export default function CreateTodo() {
     url: "/todoList",
     method: "post",
     headers: { Authorization: `${state.user.access_token}` },
+    //headers: { Authorization: `${"gibberish"}` },
     data: {
       title: createTodoObject.title,
       author: createTodoObject.author,
@@ -46,19 +50,25 @@ export default function CreateTodo() {
     });
   }
   useEffect(() => {
-    if (todo && todo.isLoading === false && todo.data) {
-      dispatch({
-        type: "CREATE_TODO",
-        id: todo.data.id,
-        title: todo.data.title,
-        author: todo.data.author,
-        authorId: todo.data.authorId,
-        description: todo.data.description,
-        dateCreated: todo.data.dateCreated,
-        completed: todo.data.completed,
-        dateCompleted: todo.data.dateCompleted,
-      });
-      navigation.navigate(`/todoList/${todo.data.id}`);
+    if (todo && todo.isLoading === false && (todo.data || todo.error)) {
+      if (todo.error) {
+        setCreateTodoFailed(true);
+        if (todo.error.code === 401)
+          setStatus("Unauthorized to create the particular todo");
+      } else {
+        dispatch({
+          type: "CREATE_TODO",
+          id: todo.data.id,
+          title: todo.data.title,
+          author: todo.data.author,
+          authorId: todo.data.authorId,
+          description: todo.data.description,
+          dateCreated: todo.data.dateCreated,
+          completed: todo.data.completed,
+          dateCompleted: todo.data.dateCompleted,
+        });
+        navigation.navigate(`/todoList/${todo.data.id}`);
+      }
     }
   }, [todo]);
 
@@ -108,6 +118,10 @@ export default function CreateTodo() {
         <br />
         <div>
           <input type="submit" value="Create" />
+          <br />
+          {createTodoFailed && (
+            <Form.Text style={{ color: "red" }}>{status}</Form.Text>
+          )}
         </div>
         <br />
         <Link href="/">Go back</Link>

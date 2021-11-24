@@ -15,7 +15,10 @@ export default function Todo(props) {
   const dateCreated = props.dateCreated;
   const completed = props.completed == "true" ? true : false;
   const dateCompleted = props.dateCompleted;
-
+  const [toggleCompleteTodoFailed, setToggleCompleteTodoFailed] =
+    useState(false);
+  const [deleteTodoFailed, setDeleteTodoFailed] = useState(false);
+  const [status, setStatus] = useState("");
   const id = props._id;
   const short = props.short;
   const { state, dispatch } = useContext(StateContext);
@@ -31,6 +34,7 @@ export default function Todo(props) {
       url: "/todoList/" + id,
       method: "patch",
       headers: { Authorization: `${state.user.access_token}` },
+      //headers: { Authorization: `${"gibberish"}` },
       data: {
         completed: updatedComplete,
         dateCompleted: updateDateCompleted,
@@ -49,20 +53,30 @@ export default function Todo(props) {
   }
 
   useEffect(() => {
-    if (toggleData && toggleData.isLoading === false && toggleData.data) {
-      dispatch({
-        type: "TOGGLE_TODO",
-        id,
-        dateCompleted: toggleData.data.dateCompleted,
-        completed: toggleData.data.completed,
-      });
-      console.log("Inside toggle todo" + completed + title);
-      if (!completed) {
-        const message = "task completed suceessfully.";
-        navigation.navigate("/success/" + title + "/" + message + "/");
+    if (
+      toggleData &&
+      toggleData.isLoading === false &&
+      (toggleData.data || toggleData.error)
+    ) {
+      if (toggleData.error) {
+        setToggleCompleteTodoFailed(true);
+        if (toggleData.error.code === 401)
+          setStatus("Unauthorized to toggle the particular todo");
       } else {
-        const message = "task updated to incomplete status.";
-        navigation.navigate("/success/" + title + "/" + message + "/");
+        dispatch({
+          type: "TOGGLE_TODO",
+          id,
+          dateCompleted: toggleData.data.dateCompleted,
+          completed: toggleData.data.completed,
+        });
+        console.log("Inside toggle todo" + completed + title);
+        if (!completed) {
+          const message = "task completed suceessfully.";
+          navigation.navigate("/success/" + title + "/" + message + "/");
+        } else {
+          const message = "task updated to incomplete status.";
+          navigation.navigate("/success/" + title + "/" + message + "/");
+        }
       }
     }
   }, [toggleData]);
@@ -71,6 +85,7 @@ export default function Todo(props) {
     url: "/todoList/" + id,
     method: "delete",
     headers: { Authorization: `${state.user.access_token}` },
+    //headers: { Authorization: `${"gibberish"}` },
   }));
 
   function onDeleteHandler() {
@@ -79,8 +94,20 @@ export default function Todo(props) {
     // deleteTodoFunction(id);
   }
   useEffect(() => {
-    if (deleteData && deleteData.data && deleteData.isLoading === false) {
-      dispatch({ type: "DELETE_TODO", id });
+    if (
+      deleteData &&
+      deleteData.isLoading === false &&
+      (deleteData.data || deleteData.error)
+    ) {
+      if (deleteData.error) {
+        setDeleteTodoFailed(true);
+        if (deleteData.error.code === 401)
+          setStatus("Unauthorized to delete the particular todo");
+      } else {
+        dispatch({ type: "DELETE_TODO", id });
+        const message = "task deleted sucesssfully.";
+        navigation.navigate("/success/" + title + "/" + message + "/");
+      }
     }
   }, [deleteData]);
   function handleClose() {
@@ -92,8 +119,10 @@ export default function Todo(props) {
 
     handleClose();
     // navigation.navigate("/delete/" + title);
-    const message = "task deleted sucesssfully.";
-    navigation.navigate("/success/" + title + "/" + message + "/");
+    // if (!deleteTodoFailed) {
+    //   const message = "task deleted sucesssfully.";
+    //   navigation.navigate("/success/" + title + "/" + message + "/");
+    // }
   }
 
   return (
@@ -154,6 +183,9 @@ export default function Todo(props) {
               {short && <Link href={`/todoList/${id}`}>View full todo</Link>}
               <br />
             </div>
+          )}
+          {(toggleCompleteTodoFailed || deleteTodoFailed) && (
+            <Form.Text style={{ color: "red" }}>{status}</Form.Text>
           )}
         </Card.Body>
       </Card>

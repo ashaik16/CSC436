@@ -76,10 +76,16 @@ router.post("/register", function (req, res, next) {
       user
         .save()
         .then((savedUser) => {
+          //  if (savedUser === true) {
+          const token = jwt.sign({ id: user._id }, privateKey, {
+            algorithm: "RS256",
+          });
           return res.status(201).json({
             id: savedUser._id,
             username: savedUser.username,
+            access_token: token,
           });
+          // }
         })
         .catch((error) => {
           return res.status(500).json({ error: error.message });

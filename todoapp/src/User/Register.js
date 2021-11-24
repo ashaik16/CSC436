@@ -37,7 +37,11 @@ export default function Register({ show, handleClose, setShowRegister }) {
   // useEffect(() => {}, [state.user.access_token]);
   useEffect(() => {
     if (user && user.data) {
-      dispatch({ type: "REGISTER", username: user.data.username });
+      dispatch({
+        type: "REGISTER",
+        username: user.data.username,
+        access_token: user.data.access_token,
+      });
     }
   }, [user]);
 
