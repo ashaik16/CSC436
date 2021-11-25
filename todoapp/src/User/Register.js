@@ -48,7 +48,6 @@ export default function Register({ show, handleClose, setShowRegister }) {
   useEffect(() => {
     if (user && user.isLoading === false && (user.data || user.error)) {
       if (user.error) {
-        console.log(user);
         setRegistrationFailed(true);
         setShowRegister(true);
         if (user.error.data.error.substr(0, 6) === "E11000")
@@ -58,7 +57,6 @@ export default function Register({ show, handleClose, setShowRegister }) {
         else setStatus("Registration failed, please try again later.");
         //  alert("fail");
       } else {
-        console.log(user);
         setRegistrationFailed(false);
         setShowRegister(false);
         setStatus("Registration successful. You may now login.");
