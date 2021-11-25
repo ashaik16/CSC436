@@ -2,10 +2,20 @@ export default function appReducer(state, action) {
   function userReducer(state, action) {
     switch (action.type) {
       case "LOGIN":
+      // case "REGISTER":
+      //   return action.username;
+      // case "LOGOUT":
+      //   return "";
       case "REGISTER":
-        return action.username;
+        return {
+          username: action.username,
+          access_token: action.access_token,
+        };
       case "LOGOUT":
-        return "";
+        return {
+          username: undefined,
+          access_token: undefined,
+        };
       default:
         return state;
     }
@@ -16,6 +26,8 @@ export default function appReducer(state, action) {
         const createTodoJson = {
           id: action.id,
           title: action.title,
+          author: action.author,
+          authorId: action.authorId,
           description: action.description,
           dateCreated: action.dateCreated,
           completed: action.completed,
@@ -36,13 +48,25 @@ export default function appReducer(state, action) {
         return state.filter((x) => x.id !== action.id);
       }
       case "FETCH_TODOS": {
+        console.log("Inside fetch  todo");
         return action.todoList;
       }
       default:
         return state;
     }
   }
+  function userListReducer(state, action) {
+    switch (action.type) {
+      case "FETCH_USERS": {
+        console.log(action.userList);
+        return action.userList;
+      }
+      default:
+        return state;
+    }
+  }
   return {
+    userList: userListReducer(state.userList, action),
     user: userReducer(state.user, action),
     todoList: todoReducer(state.todoList, action),
   };

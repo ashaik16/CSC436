@@ -6,12 +6,14 @@ export default function Logout() {
   const { user } = state;
   return (
     <form
+      style={{ backgroundColor: "#85C1E9" }}
       onSubmit={(e) => {
         e.preventDefault();
         dispatch({ type: "LOGOUT" });
       }}
     >
-      Logged in as: <b>{user}</b>&nbsp;
+      Logged in as: <b>{user.username}</b>&nbsp;
+      {/* Logged in as: <b>{user}</b>&nbsp; */}
       <input type="submit" value="Logout" />
     </form>
   );

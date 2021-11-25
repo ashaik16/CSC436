@@ -3,6 +3,7 @@
     {
       "id": 1,
       "title": "Check Mails",
+      "author": "a",
       "description": "Check if there are any new mails.",
       "dateCreated": "1/10/15",
       "completed": false,
@@ -11,6 +12,7 @@
     {
       "id": 2,
       "title": "Pay rent",
+      "author": "a",
       "description": "Check for the utilities bills as well.",
       "dateCreated": "1/10/15",
       "completed": false,
@@ -19,10 +21,38 @@
     {
       "id": 3,
       "title": "Pay tution fee",
+      "author": "a",
       "description": "Check if the CTA pass fee is included.",
       "dateCreated": "11/10/15",
       "completed": false,
       "dateCompleted": ""
+    },
+    {
+      "title": "acheck",
+      "author": "a",
+      "description": "acheck",
+      "dateCreated": "11/8/2021",
+      "completed": false,
+      "dateCompleted": "",
+      "id": 4
+    },
+    {
+      "title": "anamcheck",
+      "author": "anam",
+      "description": "anamcheck",
+      "dateCreated": "11/8/2021",
+      "completed": false,
+      "dateCompleted": "",
+      "id": 5
+    },
+    {
+      "title": "checking for dots",
+      "author": "anam",
+      "description": "checking for dotssssjhgdjafjasfajvak",
+      "dateCreated": "11/8/2021",
+      "completed": false,
+      "dateCompleted": "",
+      "id": 6
     }
   ],
   "users": [
@@ -32,23 +62,23 @@
       "password": "badpassword"
     },
     {
-      "username": "a",
+      "username": "anam",
       "password": "a",
       "id": 2
     },
     {
-      "username": "s",
-      "password": "s",
+      "username": "a",
+      "password": "a",
       "id": 3
     },
     {
-      "username": "as",
-      "password": "ss",
+      "username": "zeshan",
+      "password": "z",
       "id": 4
     },
     {
-      "username": "anam",
-      "password": "anam",
+      "username": "xyz",
+      "password": "xyz",
       "id": 5
     }
   ]
