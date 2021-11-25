@@ -19,7 +19,7 @@ export default function UserBar() {
       <Container>
         <Logout />
         <hr />
-        {user.username && <Link href="/todoList/create">Create New Post</Link>}
+        {user.username && <Link href="/todoList/create">Create New Todo</Link>}
         &nbsp;&nbsp;
         {user.username && <Link href="/users">List All Users</Link>}
         <hr />
