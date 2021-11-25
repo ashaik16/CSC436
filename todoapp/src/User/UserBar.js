@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Button, Container, Card, Row, Col, Image } from "react-bootstrap";
+import { Button, Container, Card, CardGroup } from "react-bootstrap";
 import { Link, useNavigation } from "react-navi";
 import { StateContext } from "../Contexts";
 import HomePage from "../pages/HomePage";
@@ -23,55 +23,56 @@ export default function UserBar() {
         &nbsp;&nbsp;
         {user.username && <Link href="/users">List All Users</Link>}
         <hr />
-        {/* {user && <CreateTodo />} */}
         <HomePage />
       </Container>
     );
   } else {
     return (
-      <Container
-        style={{
-          marginLeft: "11px",
-        }}
-      >
-        {/* <Card
-              className="bg-dark text-white card-width"
-              style={{ width: "75%" }}
-            >
-              <Card.Img
-                className="card-width"
-                src={process.env.PUBLIC_URL + "/MyTodoLogo.jpg"}
-                alt="Card image"
-              />
-            </Card> */}
+      <Container>
+        <CardGroup>
+          <Card style={{ backgroundColor: "#85C1E9", border: "none" }}>
+            <Card.Img
+              className="card-width"
+              src={process.env.PUBLIC_URL + "/MyTodoLogo.jpg"}
+              alt="Card image"
+              style={{ width: "73%", alignSelf: "center" }}
+            />
+          </Card>
 
-        <Col
-          className="text-center"
-          style={{ paddingTop: "10px", paddingBottom: "2px" }}
-        >
-          <Card style={{ width: "60%", height: "97%" }}>
-            <Card.Header style={{ marginTop: "20px" }}>
+          <Card
+            className="text-center"
+            style={{
+              marginLeft: "10px",
+              marginTop: "30px",
+              alignSelf: "center",
+            }}
+          >
+            <Card.Header style={{ backgroundColor: "#D6EAF8" }}>
               {" "}
               <h5>
                 <b>
                   <i>Your Daily Planner</i>
                 </b>
               </h5>
-              <Image
-                style={{
-                  width: "55%",
-                  height: "55%",
-                }}
-                src={process.env.PUBLIC_URL + "/Logo.png"}
-              />
             </Card.Header>
+            <Card.Img
+              variant="top"
+              src={process.env.PUBLIC_URL + "/Logo.png"}
+              style={{
+                width: "45%",
+                height: "55%",
+                alignSelf: "center",
+              }}
+            />
             <Card.Body>
-              <Card.Title> Already Have an Account?</Card.Title>
+              <Card.Title>
+                <h5> Already Have an Account?</h5>
+              </Card.Title>
 
               {!user.username && (
                 <div className="justify-content-end">
                   <Button variant="link" onClick={(e) => setShowLogin(true)}>
-                    Login
+                    <h5> Login </h5>
                   </Button>
                   <Login
                     show={showLogin}
@@ -81,11 +82,14 @@ export default function UserBar() {
                 </div>
               )}
             </Card.Body>
-            <Card.Footer className="text-muted">
+            <Card.Footer
+              className="text-muted"
+              style={{ backgroundColor: "#D6EAF8" }}
+            >
               Sign Up For New User
               <br />
               <Button variant="link" onClick={(e) => setShowRegister(true)}>
-                Register
+                <h5> Register </h5>
               </Button>
               <Register
                 show={showRegister}
@@ -94,27 +98,7 @@ export default function UserBar() {
               />
             </Card.Footer>
           </Card>
-        </Col>
-        {/* {!user.username && (
-          <div className="justify-content-end">
-            <Button variant="link" onClick={(e) => setShowLogin(true)}>
-              Login
-            </Button>
-            <Login
-              show={showLogin}
-              handleClose={() => setShowLogin(false)}
-              setShowLogin={setShowLogin}
-            />
-            <Button variant="link" onClick={(e) => setShowRegister(true)}>
-              Register
-            </Button>
-            <Register
-              show={showRegister}
-              handleClose={() => setShowRegister(false)}
-              setShowRegister={setShowRegister}
-            />
-          </div>
-        )} */}
+        </CardGroup>
       </Container>
     );
   }
