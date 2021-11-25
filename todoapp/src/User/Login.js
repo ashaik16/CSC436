@@ -42,7 +42,7 @@ export default function Login({ show, handleClose, setShowLogin }) {
         errorMessage = user.error.data.error;
         setLoginFailed(true);
         setShowLogin(true);
-        alert("failed");
+        //  alert("failed");
       } else {
         setLoginFailed(false);
         console.log(user.data);

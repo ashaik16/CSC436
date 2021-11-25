@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { StateContext } from "../Contexts";
 import Todo from "./Todo";
-
+import { Card } from "react-bootstrap";
 // export default function TodoList({ todoList, dispatch }) {
 
 export default function TodoList(props) {
@@ -15,6 +15,8 @@ export default function TodoList(props) {
         <u>Todo List</u>
       </h2>
       <ul>
+        <br />
+
         {todoList &&
           props.todoList.todoList.map((todoItem, i) => (
             <ol key={"Todo" + i}>
@@ -32,7 +34,16 @@ export default function TodoList(props) {
               />
             </ol>
           ))}
-        {todoList && todoList.length === 0 && "User does not have any task"}
+        {
+          todoList && todoList.todoList.length === 0 && (
+            <Card>
+              <Card.Body style={{ backgroundColor: "#1E90FF" }}>
+                User does not have any task
+              </Card.Body>
+            </Card>
+          )
+          //  "User does not have any task"
+        }
       </ul>
     </div>
   );

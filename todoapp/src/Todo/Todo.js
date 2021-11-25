@@ -147,7 +147,9 @@ export default function Todo(props) {
           <Card.Subtitle>
             <div>{`Description: ${processedContent}`}</div>
           </Card.Subtitle>
-          <Card.Subtitle>Status:</Card.Subtitle>
+          <Card.Subtitle>
+            Status: {completed ? "Completed" : "InComplete"}
+          </Card.Subtitle>
           {user.username == author && (
             <div>
               <div>
