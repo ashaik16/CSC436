@@ -48,7 +48,6 @@ export default function Todo(props) {
     const updatedComplete = !completed;
     var updateDateCompleted = date + " " + time;
     if (!updatedComplete) updateDateCompleted = "";
-    console.log("Inside onCompleteHandler" + updatedComplete + title);
     toggleTodoFunction(id, updatedComplete, updateDateCompleted);
   }
 
@@ -69,7 +68,6 @@ export default function Todo(props) {
           dateCompleted: toggleData.data.dateCompleted,
           completed: toggleData.data.completed,
         });
-        console.log("Inside toggle todo" + completed + title);
         if (!completed) {
           const message = "task completed suceessfully.";
           navigation.navigate("/success/" + title + "/" + message + "/");

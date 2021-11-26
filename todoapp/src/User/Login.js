@@ -45,7 +45,6 @@ export default function Login({ show, handleClose, setShowLogin }) {
         //  alert("failed");
       } else {
         setLoginFailed(false);
-        console.log(user.data);
         dispatch({
           type: "LOGIN",
           username,
